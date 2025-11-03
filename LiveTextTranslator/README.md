@@ -88,8 +88,9 @@ Python, FastAPI, WebSocket, NLLB-200, Telegram Bot (python-telegram-bot), Firest
 ---
 
 ## 📂 Project Files
-- **Presentation (Hebrew)** [Link](https://github.com/Tams03/CS-Projects/blob/main/LiveTextTranslator/Deep_Learning.pdf) 
+- **Presentation (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/LiveTextTranslator/Deep_Learning.pdf) 
 - **Google Survey & Results:** [Link](https://docs.google.com/forms/d/15E-CbHtdQRPs7BiZ-v9oNSgnP_QKuv6a1FX3L-Kx6GI/edit#responses)
+- **Github Repository:**[Link](https://github.com/Tams03/DL-Translator-Project.git)
 
 ---
 
