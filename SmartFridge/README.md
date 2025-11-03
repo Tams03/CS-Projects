@@ -68,9 +68,7 @@ The system follows a **Service-Oriented Architecture (SOA)** with four layers:
 ---
 
 ## 🎬 Demo Video
-Watch the SmartFridge prototype in action: [Demo Video](smartfridge-demo.mp4)  
-
-*(Upload the video to the `SmartFridge` folder in your repo first)*
+Watch the SmartFridge prototype in action: [Demo Video](SmartFridge/smartfridge-demo.mp4)
 
 ---
 
