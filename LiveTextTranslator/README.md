@@ -1,1 +1,102 @@
+# 🌐 Live Text Translator – Real-Time Multilingual Communication
 
+**Course:** Deep Learning and Its Applications  
+**Grade:** 99/100  
+**Type:** Deep Learning & Web Application  
+**Technologies:** Python, NLLB-200, FastAPI, WebSocket, GitHub Codespaces, Firebase  
+
+---
+
+## Overview
+Live Text Translator (named **LinguaLink**) is a real-time translator for text and planned speech conversations, allowing users speaking different languages to communicate seamlessly.  
+The system uses **NLLB-200 transformer models** for high-accuracy translations and **WebSocket-based communication** for low-latency interactions.  
+A **Telegram bot interface** enables group chat translation with per-user language preferences.  
+The project also lays the groundwork for future **speech-to-speech**, **speech-to-text**, and **text-to-speech** integration.
+
+---
+
+## Problem & Motivation
+- Around 7,159 languages exist worldwide, but most people speak only 1–2.  
+- Language barriers affect communication in **business, healthcare, education, and personal interactions**.  
+- Traditional translation tools are slow and impractical for real-time conversations.  
+- **LinguaLink** addresses this by providing instant, bidirectional translations between multiple languages in text-based chats.
+
+---
+
+## 🎯 Goals
+- Provide **real-time translation** between multiple languages.  
+- Support **cross-language communication** in group chats.  
+- Achieve **low-latency, high-accuracy** translation using NLLB-200.  
+- Prepare for **future speech-to-text and text-to-speech integration**.  
+
+---
+
+## 👩‍💻 Roles & Contributions
+
+### **Tami (You)**
+- Implemented **server-side translation** using NLLB-200 in FastAPI  
+- Built **real-time WebSocket chat system**  
+- Conducted **stress tests** with multiple concurrent clients  
+- Prepared **documentation and README**  
+- Assisted with **project planning and technical decisions**  
+
+### **Partner**
+- Developed **LinguaLink Telegram bot** for real-time group translation  
+- Managed **user language preferences** and Firestore storage  
+- Implemented **group message handling**, automatic language detection, and diagnostic commands  
+- Set up testing environment and deployment scripts  
+
+*This division highlights both technical and collaborative contributions for the portfolio.*
+
+---
+
+## 🧩 System Architecture
+- **Application Layer:** Telegram bot interface and WebSocket chat for real-time user interaction  
+- **Service Layer:** FastAPI server handles translation requests using the NLLB-200-distilled-600M model  
+- **Business Layer:** Manages pairing of users, session handling, and fallback strategies for large models  
+- **Data Layer:** Stores user preferences and group metadata in Firestore  
+
+---
+
+## 🚀 Core Features
+- Real-time text translation in **group chats** and **direct messages**  
+- Automatic **user pairing** and reassignment if a participant disconnects  
+- **WebSocket communication** for low-latency, dynamic message delivery  
+- Future enhancements: **speech-to-speech / speech-to-text / text-to-speech**, additional language support, expand to 200+ languages  
+- Development Environment: **GitHub Codespaces with Python 3.12**  
+- Model: **NLLB-200-distilled-600M** (transformer-based, pre-trained by Meta/Facebook)  
+
+---
+
+## 🧪 Prototype
+- WebSocket chat system running on FastAPI server  
+- Telegram bot integrated for group translation  
+- NLLB-200 transformer for high-accuracy translation  
+- Tested in **GitHub Codespaces** using Python 3.12 environment  
+
+---
+
+## 📂 Project Files
+- **Presentation (Hebrew)**  
+- **Google Survey & Results:** [Link](https://docs.google.com/forms/d/15E-CbHtdQRPs7BiZ-v9oNSgnP_QKuv6a1FX3L-Kx6GI/edit#responses)
+
+---
+
+## 📈 Results & Reflection
+- Achieved a **functional MVP** for real-time multilingual text translation  
+- Preliminary translation accuracy: **BLEU score >0.35 (EN ↔ HE)** and latency under 1 second  
+- System successfully handled **multiple concurrent users** (10 clients across 6 languages) without latency issues  
+- Gained hands-on experience with **deep learning**, **real-time communication**, and **multilingual application design**  
+- Demonstrates **innovation, scalability, and practical application**, making it portfolio-ready  
+
+---
+
+## 💼 Business & Impact
+💡 **Innovation:** Leverages cutting-edge NLLB-200 deep learning models for seamless multilingual communication  
+💡 **Social Impact:** Bridges language gaps in real-time, helping businesses, healthcare, education, and global collaboration  
+💡 **Future Potential:** Expand to 200+ languages, integrate speech recognition and synthesis, deploy as a public service  
+
+---
+
+## 🧰 Tools & Technologies
+Python, FastAPI, WebSocket, NLLB-200, Telegram Bot (python-telegram-bot), Firestore, GitHub Codespaces, Transformers, PyTorch, NLTK
