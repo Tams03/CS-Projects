@@ -83,7 +83,7 @@ Python, YouTube API
 
 ## 📂 Project Files
 
-- Colab Notebook: [YouTube Companion Notebook](https://github.com/Tams03/CS-Projects/blob/main/YouTube-Companion/YouTube-Companion-code.ipynb)  
+- Colab Notebook: [YouTube Companion Notebook](https://github.com/Tams03/CS-Projects/blob/main/YouTube-Companion/YouTube-Companion-code)
 - Example outputs of channel data and recommendations   
 
 ---
