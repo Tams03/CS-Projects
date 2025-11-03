@@ -1,4 +1,5 @@
 # 🧊 SmartFridge – IoT Food Management System
+**Course:** IOT
 **Grade:** 92/100  
 **Type:** IoT & Mobile Application  
 **Technologies:** Python, OpenCV, Pyzbar, Firebase, Pyrebase, Flutter, Gemini AI, Raspberry Pi, OpenFoodFacts API
