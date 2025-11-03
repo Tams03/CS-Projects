@@ -77,7 +77,7 @@ The project also lays the groundwork for future **speech-to-speech**, **speech-t
 ---
 
 ## 📂 Project Files
-- **Presentation (Hebrew)**  
+- **Presentation (Hebrew)** [Link](https://github.com/Tams03/CS-Projects/blob/main/LiveTextTranslator/Deep_Learning.pdf) 
 - **Google Survey & Results:** [Link](https://docs.google.com/forms/d/15E-CbHtdQRPs7BiZ-v9oNSgnP_QKuv6a1FX3L-Kx6GI/edit#responses)
 
 ---
