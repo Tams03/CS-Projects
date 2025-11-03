@@ -6,25 +6,86 @@
 ---
 
 ## Overview
-SmartFridge is an IoT system for home food inventory: barcode-based scanning with a Raspberry Pi camera, a Flutter mobile app, and Firebase for real-time sync. It sends expiration and low-stock alerts and provides AI-powered recipe suggestions.
+SmartFridge is an IoT-based system designed to manage home food inventory intelligently: barcode-based scanning with a Raspberry Pi camera, a Flutter mobile app, and Firebase for real-time sync. It sends expiration and low-stock alerts and provides AI-powered recipe suggestions.
+
+---
 
 ## Problem & Motivation
-Households waste food due to forgotten items and manual inventory. SmartFridge automates tracking and alerts to reduce waste and save time.
+Households often waste food because they forget what’s in the fridge or when items expire.  
+Manual inventory checks and planning shopping lists take time and effort.  
+SmartFridge solves this by automatically detecting items, tracking inventory, and notifying users before food expires.
 
-## Key Features
-- Real-time inventory tracking  
-- Expiration & low-stock alerts  
-- Automatic shopping lists  
-- Gemini AI suggestions (e.g., "What can I cook with milk and eggs?")  
-- Barcode scanning (Raspberry Pi camera)
+---
 
-## Architecture & Tools
-- Application: Flutter (Android 8.0+)  
-- Vision: OpenCV + pyzbar for barcode detection  
-- Backend: Firebase (real-time DB) via Pyrebase  
-- Hardware: Raspberry Pi + camera, Wi-Fi module  
-- APIs: OpenFoodFacts for product info
+## 🎯 Goals
+- Reduce food waste through real-time expiration alerts  
+- Save time with automatic shopping lists and remote access  
+- Provide a modern, intuitive, AI-assisted user experience  
 
-## Prototype & Results
-- Prototype with single camera + Flutter app working with Firebase.  
-- Outcome: Working demo, real-time sync, successful user flows.
+---
+
+## 👩‍💻 My Role
+- Implemented barcode recognition using **OpenCV + Pyzbar**  
+- Integrated **Firebase real-time database** for inventory tracking  
+- Created the user manual and final documentation  
+
+---
+
+## 🧩 System Architecture
+The system follows a **Service-Oriented Architecture (SOA)** with four layers:
+
+1. **Application Layer** – Flutter mobile app (Android 8.0+).  
+   Displays inventory, shows alerts, interacts with AI Gemini assistant.  
+2. **Service Layer** – Handles barcode recognition and product identification using **OpenCV + Pyzbar** and **OpenFoodFacts APIs**.  
+3. **Business Layer** – Manages logic for expiration tracking, alert scheduling, and shopping list generation.  
+4. **Data Layer** – Stores inventory, dates, and user data in **Firebase**, synchronized in real time.  
+
+---
+
+## ⚙️ Hardware Components
+- **Raspberry Pi** with built-in camera for barcode scanning  
+- **Wi-Fi module** for real-time synchronization with Firebase  
+- *(Future feature)*: Pressure sensors for detecting item removal and quantity  
+
+---
+
+## 🚀 Core Features
+✅ Real-time tracking of fridge inventory  
+✅ Expiration and low-stock alerts  
+✅ Smart suggestions using Gemini AI (e.g., “What can I cook with milk and eggs?”)  
+✅ Barcode scanning with Raspberry Pi camera  
+✅ Mobile app for inventory management and shopping lists  
+✅ Remote access and real-time updates  
+
+---
+
+## 🧪 Prototype
+- Working fridge prototype with a single barcode camera  
+- Fully functional Android Flutter app with Firebase backend  
+- Integrated Gemini AI for recipe suggestions and item queries  
+- API connection to OpenFoodFacts for nutritional and product data  
+
+---
+
+## 🎬 Demo Video
+Watch the SmartFridge prototype in action: [Demo Video](smartfridge-demo.mp4)  
+
+*(Upload the video to the `SmartFridge` folder in your repo first)*
+
+---
+
+## 💼 Business & Impact
+💡 **Innovation:** Combines IoT, AI, and mobile computing for a real-life problem  
+💡 **Social Impact:** Reduces food waste, saves money, and simplifies daily routines  
+💡 **Commercial Potential:** Licensing opportunities for appliance manufacturers and grocery partners  
+
+---
+
+## 🧰 Tools & Technologies
+Python, OpenCV, Pyzbar, Pyrebase, Firebase, Requests, Flutter, Gemini AI, Raspberry Pi, Figma, Postman, Git, Canva  
+
+---
+
+## 📈 Results & Reflection
+The prototype successfully demonstrated seamless IoT integration and real-time inventory tracking.  
+I gained hands-on experience with **computer vision**, **cloud synchronization**, and **AI-based user assistance**, and strengthened my understanding of **full-stack IoT development**.  
