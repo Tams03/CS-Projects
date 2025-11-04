@@ -14,7 +14,7 @@ API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
 # Initialize the YouTube API client
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
-def get_channel_id(handle):
+def get_channel_id(handle, youtube):
     """Find the channel ID by channel handle using YouTube Search API."""
     try:
         request = youtube.search().list(
@@ -26,10 +26,11 @@ def get_channel_id(handle):
         if 'items' in response and len(response['items']) > 0:
             return response['items'][0]['id']['channelId']
         return None
-    except:
+    except Exception as e:
+        print(f"Error message: {e}")
         return None
 
-def get_all_video_categories(channel_id, max_results=50):
+def get_all_video_categories(channel_id, youtube, max_results=50):
     """Fetch a limited number of videos from the channel and return a list of categories."""
     categories = []
     try:
@@ -51,10 +52,11 @@ def get_all_video_categories(channel_id, max_results=50):
             if 'items' in video_response and len(video_response['items']) > 0:
                 categories.append(video_response['items'][0]['snippet']['categoryId'])
         return categories
-    except:
+    except Exception as e:
+        print(f"Error message: {e}")
         return categories
 
-def get_category_name(category_id):
+def get_category_name(category_id, youtube):
     """Fetch the category name from the category ID."""
     try:
         request = youtube.videoCategories().list(
@@ -65,10 +67,11 @@ def get_category_name(category_id):
         if 'items' in response and len(response['items']) > 0:
             return response['items'][0]['snippet']['title']
         return None
-    except:
+    except Exception as e:
+        print(f"Error message: {e}")
         return None
 
-def get_channel_data(channel_id):
+def get_channel_data(channel_id, youtube):
     """Fetch channel data from YouTube API."""
     try:
         request = youtube.channels().list(
@@ -86,10 +89,11 @@ def get_channel_data(channel_id):
                 'YouTube Videos': int(channel_info['statistics'].get('videoCount', 0))
             }
         return None
-    except:
+    except Exception as e:
+        print(f"Error message: {e}")
         return None
 
-def calculate_content_frequency(channel_id):
+def calculate_content_frequency(channel_id, youtube):
     """Calculate content upload frequency in days."""
     try:
         request = youtube.activities().list(
@@ -108,10 +112,11 @@ def calculate_content_frequency(channel_id):
             intervals = [(upload_dates[i] - upload_dates[i+1]).days for i in range(len(upload_dates)-1)]
             return sum(intervals) / len(intervals)
         return None
-    except:
+    except Exception as e:
+        print(f"Error message: {e}")
         return None
 
-def get_most_popular_video(channel_id):
+def get_most_popular_video(channel_id, youtube):
     """Get the most popular video for a given channel."""
     try:
         request = youtube.search().list(
@@ -126,31 +131,33 @@ def get_most_popular_video(channel_id):
             video = response['items'][0]
             return f"{video['snippet']['title']} (https://www.youtube.com/watch?v={video['id']['videoId']})"
         return None
-    except:
+    except Exception as e:
+        print(f"Error message: {e}")
         return None
 
-def compare_channels(channel_handles):
+def compare_channels(channel_handles, youtube):
     """Compare channels by retrieving categories and engagement rates."""
     comparison_data = []
 
     for handle in channel_handles:
-        channel_id = get_channel_id(handle)
+        channel_id = get_channel_id(handle, youtube)
         if not channel_id:
+            print(f"Handle not found: {handle}")
             continue
 
-        categories = get_all_video_categories(channel_id)
+        categories = get_all_video_categories(channel_id, youtube)
         most_common_category = None
         if categories:
             most_common_category_id, _ = Counter(categories).most_common(1)[0]
-            most_common_category = get_category_name(most_common_category_id)
+            most_common_category = get_category_name(most_common_category_id, youtube)
 
-        channel_data = get_channel_data(channel_id)
+        channel_data = get_channel_data(channel_id, youtube)
         if channel_data:
             views = channel_data['YouTube Views']
             subscribers = channel_data['YouTube Subscribers']
             engagement_rate = (views / subscribers) * 100 if subscribers > 0 else 0
-            content_frequency = calculate_content_frequency(channel_id)
-            most_popular_video = get_most_popular_video(channel_id)
+            content_frequency = calculate_content_frequency(channel_id, youtube)
+            most_popular_video = get_most_popular_video(channel_id, youtube)
 
             channel_data.update({
                 'Most Common Category': most_common_category,
@@ -163,11 +170,12 @@ def compare_channels(channel_handles):
     return comparison_data
 
 # Part 3 - suggest new channel based on other channels
-def suggest_channel_based_on_others(channel_handles):
+def suggest_channel_based_on_others(channel_handles, youtube):
     suggested_channel = None
-    input_channel_ids = [get_channel_id(handle) for handle in channel_handles if get_channel_id(handle)]
+    input_channel_ids = [get_channel_id(handle, youtube) for handle in channel_handles if get_channel_id(handle, youtube)]
+    
     for channel_id in input_channel_ids:
-        channel_data = get_channel_data(channel_id)
+        channel_data = get_channel_data(channel_id, youtube)
         if not channel_data:
             continue
         search_request = youtube.search().list(
