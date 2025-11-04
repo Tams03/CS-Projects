@@ -5,7 +5,7 @@ from datetime import datetime
 API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
-def get_channel_id(handle):
+def get_channel_id(handle, youtube):
     handle = handle.strip()
 
     # 1️ Full channel URL
