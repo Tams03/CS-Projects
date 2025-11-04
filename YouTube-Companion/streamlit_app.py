@@ -2,7 +2,7 @@ import streamlit as st
 from backend import compare_channels, get_channel_data, suggest_channel_based_on_others, get_channel_id
 from googleapiclient.discovery import build
 
-API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
+API_KEY = 'AIzaSyCFFdAVVupyX_MMs7uqFJ_Vl2iKn37g_DY'
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 st.set_page_config(page_title="YouTube Companion", layout="wide")
