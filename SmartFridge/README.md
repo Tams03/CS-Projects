@@ -98,7 +98,8 @@ Python, OpenCV, Pyzbar, Pyrebase, Firebase, Requests, Flutter, Gemini AI, Raspbe
 
 - **Final Report (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/Reports/SmartFridge%20%E2%80%93%20%D7%9E%D7%A1%D7%9E%D7%9A%20%D7%90%D7%A4%D7%99%D7%95%D7%9F%20%D7%A1%D7%95%D7%A4%D7%99.pdf)  
 - **Presentation Slides (Hebrew):**[Link](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/Reports/IOT_FINAL_PRECENTATION.pdf) 
-- **User Guide (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/Reports/SmartFridge%20-%20%D7%9E%D7%93%D7%A8%D7%99%D7%9A%20%D7%9C%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9.pdf)  
+- **User Guide (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/Reports/SmartFridge%20-%20%D7%9E%D7%93%D7%A8%D7%99%D7%9A%20%D7%9C%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9.pdf)
+- **Github Repository:**[Link]()
 
 ---
 
