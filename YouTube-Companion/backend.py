@@ -2,7 +2,7 @@ from googleapiclient.discovery import build
 from collections import Counter
 from datetime import datetime
 
-API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
+API_KEY = 'AIzaSyCFFdAVVupyX_MMs7uqFJ_Vl2iKn37g_DY'
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 def get_channel_id(handle, youtube):
