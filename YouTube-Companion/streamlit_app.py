@@ -48,9 +48,9 @@ if action == "Get Channel Data":
             if data:
                 st.success("✅ Channel Data Retrieved Successfully!")
                 st.markdown(f"**Channel Name:** {data['YouTube Handle']}")
-                st.markdown(f"**Subscribers:** {data.get('YouTube Subscribers', 'N/A')}")
-                st.markdown(f"**Total Views:** {data.get('YouTube Views', 'N/A')}")
-                st.markdown(f"**Total Videos:** {data.get('YouTube Videos', 'N/A')}")
+                st.markdown(f"**Subscribers:** {data.get('YouTube Subscribers', 0):,}")
+                st.markdown(f"**Total Views:** {data.get('YouTube Views', 0):,}")
+                st.markdown(f"**Total Videos:** {data.get('YouTube Videos', 0):,}")
                 st.markdown(f"[Visit Channel]({data.get('YouTube Channel Link', '#')})")
             else:
                 st.error("❌ Could not retrieve channel data. Check the handle.")
