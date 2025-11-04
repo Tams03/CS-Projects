@@ -7,6 +7,7 @@ from backend import (
     suggest_channel_based_on_others,
     calculate_content_frequency,
     get_most_popular_video,
+    calculate_engagement_rate,
     rank_channels,
     best_channel,
     youtube
