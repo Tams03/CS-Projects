@@ -1,5 +1,0 @@
-# requirements.txt
-gradio
-google-api-python-client
-pandas
-matplotlib
