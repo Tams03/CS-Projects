@@ -3,10 +3,6 @@
 from googleapiclient.discovery import build
 from collections import Counter
 from datetime import datetime
-import locale
-
-# Set locale for number formatting
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 # Replace with your own API key
 API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
@@ -84,9 +80,9 @@ def get_channel_data(channel_id, youtube):
             return {
                 'YouTube Handle': channel_info['snippet']['title'],
                 'YouTube Channel Link': f"https://www.youtube.com/channel/{channel_id}",
-                'YouTube Subscribers': int(channel_info['statistics'].get('subscriberCount', 0)),
-                'YouTube Views': int(channel_info['statistics'].get('viewCount', 0)),
-                'YouTube Videos': int(channel_info['statistics'].get('videoCount', 0))
+                'YouTube Subscribers': f"{int(channel_info['statistics'].get('subscriberCount', 0)):,}",
+                'YouTube Views': f"{int(channel_info['statistics'].get('viewCount', 0)):,}",
+                'YouTube Videos': f"{int(channel_info['statistics'].get('videoCount', 0)):,}"
             }
         return None
     except Exception as e:
