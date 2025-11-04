@@ -80,9 +80,9 @@ def get_channel_data(channel_id, youtube):
             return {
                 'YouTube Handle': channel_info['snippet']['title'],
                 'YouTube Channel Link': f"https://www.youtube.com/channel/{channel_id}",
-                'YouTube Subscribers': f"{int(channel_info['statistics'].get('subscriberCount', 0)):,}",
-                'YouTube Views': f"{int(channel_info['statistics'].get('viewCount', 0)):,}",
-                'YouTube Videos': f"{int(channel_info['statistics'].get('videoCount', 0)):,}"
+                'YouTube Subscribers': int(channel_info['statistics'].get('subscriberCount', 0)),
+                'YouTube Views': int(channel_info['statistics'].get('viewCount', 0)),
+                'YouTube Videos': int(channel_info['statistics'].get('videoCount', 0))
             }
         return None
     except Exception as e:
