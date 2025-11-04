@@ -1,8 +1,10 @@
 # app.py
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-from backend import get_channel_id, get_channel_data, compare_multiple_channels_and_recommend_with_graph, suggest_channel_based_on_others
+from backend import (
+    get_channel_id, get_channel_data, compare_channels_data,
+    suggest_channel_based_on_others, suggest_channel_based_on_topic
+)
 
 # --- Page Config ---
 st.set_page_config(page_title="YouTube Channel Analyzer", layout="wide")
@@ -29,18 +31,16 @@ if action == "Compare Channels":
     if st.button("Run Comparison"):
         channel_list = [c.strip() for c in channels_input.split(",") if c.strip()]
         if len(channel_list) < 2:
-            st.warning("Enter at least two channel names.")
+            st.warning("Please enter at least two channel names.")
         else:
             st.info("Fetching data...")
-            data_list, recommendation = compare_multiple_channels_and_recommend_with_graph(channel_list)
+            data_list = compare_channels_data(channel_list)
             if data_list:
                 df = pd.DataFrame(data_list)
                 st.dataframe(df)
-                st.subheader("Recommendations")
-                st.markdown(f"**Best by Engagement Rate:** {recommendation['Best by Engagement']} ({recommendation['Engagement Rate']}%)")
-                st.markdown(f"**Best by Views:** {recommendation['Best by Views']} ({recommendation['Views']:,} views)")
+                st.success("Comparison complete!")
             else:
-                st.error("No valid data found for these channels.")
+                st.error("No valid channel data found.")
 
 # ------------------- Get Channel Data -------------------
 elif action == "Get Channel Data":
@@ -51,18 +51,15 @@ elif action == "Get Channel Data":
         if not channel_list:
             st.warning("Please enter at least one channel name.")
         else:
-            st.info("Fetching data...")
             data_list = []
             for handle in channel_list:
                 cid = get_channel_id(handle)
-                if cid:
-                    cdata = get_channel_data(cid)
-                    if cdata:
-                        data_list.append(cdata)
-                    else:
-                        st.error(f"No data found for '{handle}'.")
-                else:
+                if not cid:
                     st.error(f"Channel '{handle}' not found.")
+                    continue
+                cdata = get_channel_data(cid)
+                if cdata:
+                    data_list.append(cdata)
             if data_list:
                 df = pd.DataFrame(data_list)
                 st.dataframe(df)
@@ -83,28 +80,20 @@ elif action == "Suggest Me a Channel":
                 suggestion = suggest_channel_based_on_others(channel_list)
                 if suggestion:
                     st.success("Suggested Channel:")
-                    st.markdown(f"[{suggestion['title']}]({suggestion['link']})")
+                    st.markdown(f"[{suggestion['Handle']}]({suggestion['Link']})")
                 else:
-                    st.error("No new similar channels found.")
+                    st.error("No similar channels found.")
 
     elif option == "Based on a Topic":
         topic_input = st.text_input("Enter a topic or keyword:", "")
         if st.button("Get Suggestion by Topic"):
-            if topic_input.strip() == "":
+            if not topic_input.strip():
                 st.warning("Please enter a topic.")
             else:
                 st.info(f"Searching for channels related to '{topic_input}'...")
-                from backend import youtube
-                request = youtube.search().list(
-                    part="snippet",
-                    q=topic_input,
-                    type="channel",
-                    maxResults=1
-                )
-                response = request.execute()
-                if response.get('items'):
-                    channel = response['items'][0]['snippet']
+                suggestion = suggest_channel_based_on_topic(topic_input)
+                if suggestion:
                     st.success("Suggested Channel:")
-                    st.markdown(f"[{channel['title']}](https://www.youtube.com/channel/{channel['channelId']})")
+                    st.markdown(f"[{suggestion['Handle']}]({suggestion['Link']})")
                 else:
                     st.error("No channels found for this topic.")
