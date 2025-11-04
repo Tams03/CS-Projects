@@ -2,6 +2,8 @@
 import streamlit as st
 from backend import (
     get_channel_data,
+    get_all_video_categories,
+    get_category_name,
     get_channel_id,
     compare_channels,
     suggest_channel_based_on_others,
