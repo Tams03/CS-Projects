@@ -12,16 +12,21 @@ st.markdown(
     <style>
     /* Page background */
     .stApp {
-        background-color: #eaf5ea;
+        background: linear-gradient(to bottom right, #e0f7e9, #a8e6a3, #4caf50);
     }
     /* Headers */
     h1, h2, h3 {
-        color: #2e7d32;
+        color: #1b5e20;  /* dark green */
     }
     /* Buttons */
     div.stButton > button:first-child {
-        background-color: #2e7d32;
+        background-color: #2e7d32; /* green */
         color: white;
+        font-weight: bold;
+    }
+    /* Text colors */
+    .stMarkdown p {
+        color: #000000; /* black text */
     }
     </style>
     """,
@@ -44,16 +49,20 @@ if action == "Get Channel Data":
     
     if st.button("Get Data"):
         if channel_handle:
-            data = get_channel_data(channel_handle, youtube)
-            if data:
-                st.success("✅ Channel Data Retrieved Successfully!")
-                st.markdown(f"**Channel Name:** {data['YouTube Handle']}")
-                st.markdown(f"**Subscribers:** {data.get('YouTube Subscribers', 0):,}")
-                st.markdown(f"**Total Views:** {data.get('YouTube Views', 0):,}")
-                st.markdown(f"**Total Videos:** {data.get('YouTube Videos', 0):,}")
-                st.markdown(f"[Visit Channel]({data.get('YouTube Channel Link', '#')})")
+            channel_id = get_channel_id(channel_handle, youtube)
+            if channel_id:
+                data = get_channel_data(channel_id, youtube)
+                if data:
+                    st.success("✅ Channel Data Retrieved Successfully!")
+                    st.markdown(f"**Channel Name:** {data['YouTube Handle']}")
+                    st.markdown(f"**Subscribers:** {data.get('YouTube Subscribers', 0):,}")
+                    st.markdown(f"**Total Views:** {data.get('YouTube Views', 0):,}")
+                    st.markdown(f"**Total Videos:** {data.get('YouTube Videos', 0):,}")
+                    st.markdown(f"[Visit Channel]({data.get('YouTube Channel Link', '#')})")
+                else:
+                    st.error("❌ Could not retrieve channel data. Check the handle.")
             else:
-                st.error("❌ Could not retrieve channel data. Check the handle.")
+                st.error("❌ Could not find channel ID. Check the handle.")
         else:
             st.warning("⚠️ Please enter a channel handle.")
 
