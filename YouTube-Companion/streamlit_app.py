@@ -5,110 +5,96 @@ from googleapiclient.discovery import build
 API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
-# --- PAGE CONFIG ---
 st.set_page_config(page_title="YouTube Companion", layout="wide")
-st.markdown(
-    """
-    <style>
-    /* Page background */
-    .stApp {
-        background: linear-gradient(to bottom right, #e0f7e9, #a8e6a3, #4caf50);
-    }
-    /* Headers */
-    h1, h2, h3 {
-        color: #1b5e20;  /* dark green */
-    }
-    /* Buttons */
-    div.stButton > button:first-child {
-        background-color: #2e7d32; /* green */
-        color: white;
-        font-weight: bold;
-    }
-    /* Text colors */
-    .stMarkdown p {
-        color: #000000; /* black text */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+.stApp { background: linear-gradient(to bottom right, #e0f7e9, #a8e6a3, #4caf50); }
+h1,h2,h3 { color:#1b5e20; }
+div.stButton>button:first-child { background-color:#2e7d32; color:white; font-weight:bold; }
+.stMarkdown p { color:#000000; }
+</style>
+""", unsafe_allow_html=True)
 
 st.title("📺 YouTube Companion")
 st.write("Analyze, compare, and discover YouTube channels!")
 
-# --- SIDEBAR SELECTION ---
 action = st.sidebar.radio(
     "Select Action",
     ["Get Channel Data", "Compare Channels", "Suggest New Channels"]
 )
 
-# --- ACTION 1: GET CHANNEL DATA ---
+# --- Get Channel Data ---
 if action == "Get Channel Data":
     st.subheader("Get Channel Data")
     channel_handle = st.text_input("Enter YouTube Channel Handle:")
-    
-    if st.button("Get Data"):
-        if channel_handle:
-            channel_id = get_channel_id(channel_handle, youtube)
-            if channel_id:
-                data = get_channel_data(channel_id, youtube)
-                if data:
-                    st.success("✅ Channel Data Retrieved Successfully!")
-                    st.markdown(f"**Channel Name:** {data['YouTube Handle']}")
-                    st.markdown(f"**Subscribers:** {data.get('YouTube Subscribers', 0):,}")
-                    st.markdown(f"**Total Views:** {data.get('YouTube Views', 0):,}")
-                    st.markdown(f"**Total Videos:** {data.get('YouTube Videos', 0):,}")
-                    st.markdown(f"[Visit Channel]({data.get('YouTube Channel Link', '#')})")
-                else:
-                    st.error("❌ Could not retrieve channel data. Check the handle.")
-            else:
-                st.error("❌ Could not find channel ID. Check the handle.")
-        else:
-            st.warning("⚠️ Please enter a channel handle.")
 
-# --- ACTION 2: COMPARE CHANNELS ---
+    if st.button("Get Data") and channel_handle:
+        channel_id = get_channel_id(channel_handle, youtube)
+        if channel_id:
+            data = get_channel_data(channel_id, youtube)
+            if data:
+                st.success("✅ Channel Data Retrieved Successfully!")
+                st.markdown(f"**Handle:** {data['YouTube Handle']}")
+                st.markdown(f"**Channel Link:** {data['YouTube Channel Link']}")
+                st.markdown(f"**Subscribers:** {data.get('YouTube Subscribers',0):,}")
+                st.markdown(f"**Views:** {data.get('YouTube Views',0):,}")
+                st.markdown(f"**Videos:** {data.get('YouTube Videos',0):,}")
+                st.markdown(f"**Engagement Rate:** {data.get('Engagement Rate (%)',0)}%")
+                st.markdown(f"**Overall Content Category:** {data.get('Most Common Category','N/A')}")
+                st.markdown(f"**Content Frequency:** {data.get('Content Frequency','N/A')}")
+                st.markdown(f"**Most Popular Video:** {data.get('Most Popular Video','N/A')}")
+            else:
+                st.error("❌ Could not retrieve channel data. Check the handle.")
+        else:
+            st.error("❌ Could not find channel ID. Check the handle.")
+
+# --- Compare Channels ---
 elif action == "Compare Channels":
     st.subheader("Compare Multiple Channels")
-    channel_handles_input = st.text_area(
-        "Enter YouTube Channel Handles (separated by commas):"
-    )
-    if st.button("Compare"):
-        if channel_handles_input:
-            channel_handles = [h.strip() for h in channel_handles_input.split(",") if h.strip()]
-            comparison = compare_channels(channel_handles, youtube)
-            if comparison:
-                st.success("✅ Comparison Completed!")
-                for i, ch in enumerate(comparison, 1):
-                    st.markdown(f"### {i}. {ch['YouTube Handle']}")
-                    st.markdown(f"**Subscribers:** {ch.get('YouTube Subscribers', 'N/A')}")
-                    st.markdown(f"**Views:** {ch.get('YouTube Views', 'N/A')}")
-                    st.markdown(f"**Videos:** {ch.get('YouTube Videos', 'N/A')}")
-                    st.markdown(f"**Most Common Category:** {ch.get('Most Common Category', 'N/A')}")
-                    st.markdown(f"**Engagement Rate:** {ch.get('Engagement Rate (%)', 'N/A')}%")
-                    st.markdown(f"**Content Frequency:** {ch.get('Content Frequency', 'N/A')}")
-                    st.markdown(f"**Most Popular Video:** {ch.get('Most Popular Video', 'N/A')}")
-                    st.markdown("---")
-            else:
-                st.error("❌ No valid data found for the given channels.")
-        else:
-            st.warning("⚠️ Please enter at least two channel handles.")
+    channel_handles_input = st.text_area("Enter YouTube Channel Handles (separated by commas):")
+    if st.button("Compare") and channel_handles_input:
+        channel_handles = [h.strip() for h in channel_handles_input.split(",") if h.strip()]
+        comparison = compare_channels(channel_handles, youtube)
+        if comparison:
+            st.success("✅ Comparison Completed!")
 
-# --- ACTION 3: SUGGEST NEW CHANNELS ---
+            # Sorted outputs
+            by_subs = sorted(comparison, key=lambda x: x['YouTube Subscribers'], reverse=True)
+            by_views = sorted(comparison, key=lambda x: x['YouTube Views'], reverse=True)
+            by_engagement = sorted(comparison, key=lambda x: x['Engagement Rate (%)'], reverse=True)
+
+            st.markdown("### Channel Comparison based on Subscribers:")
+            for i, ch in enumerate(by_subs,1):
+                st.markdown(f"{i}. {ch['YouTube Handle']} - {ch['YouTube Subscribers']:,} Subscribers")
+
+            st.markdown("### Channel Comparison based on Views:")
+            for i, ch in enumerate(by_views,1):
+                st.markdown(f"{i}. {ch['YouTube Handle']} - {ch['YouTube Views']:,} Views")
+
+            st.markdown("### Channel Comparison based on Engagement Rate:")
+            for i, ch in enumerate(by_engagement,1):
+                st.markdown(f"{i}. {ch['YouTube Handle']} - {ch['Engagement Rate (%)']}% Engagement Rate")
+
+            best_eng = by_engagement[0]
+            best_views = by_views[0]
+            st.markdown("---")
+            st.markdown("**Recommendation**:")
+            st.markdown(f"Best Channel by Engagement Rate: {best_eng['YouTube Handle']} with an engagement rate of {best_eng['Engagement Rate (%)']}%")
+            st.markdown(f"Best Channel by Views: {best_views['YouTube Handle']} with {best_views['YouTube Views']:,} views")
+
+        else:
+            st.error("❌ No valid data found for the given channels.")
+
+# --- Suggest New Channels ---
 elif action == "Suggest New Channels":
     st.subheader("Suggest New Channels Based on Your Input")
-    channel_handles_input = st.text_area(
-        "Enter YouTube Channel Handles to Base Suggestions On (separated by commas):"
-    )
-    if st.button("Suggest"):
-        if channel_handles_input:
-            channel_handles = [h.strip() for h in channel_handles_input.split(",") if h.strip()]
-            suggestion = suggest_channel_based_on_others(channel_handles, youtube)
-            if suggestion:
-                st.success("✅ Suggested Channel Found!")
-                st.markdown(f"**Channel Name:** {suggestion.get('Channel Name', 'N/A')}")
-                st.markdown(f"[Visit Channel]({suggestion.get('Channel Link', '#')})")
-
-            else:
-                st.info("ℹ️ No new similar channels could be found.")
+    channel_handles_input = st.text_area("Enter YouTube Channel Handles to Base Suggestions On (separated by commas):")
+    if st.button("Suggest") and channel_handles_input:
+        channel_handles = [h.strip() for h in channel_handles_input.split(",") if h.strip()]
+        suggestion = suggest_channel_based_on_others(channel_handles, youtube)
+        if suggestion:
+            st.success("✅ Suggested Channel Found!")
+            st.markdown(f"**Channel Name:** {suggestion.get('Channel Name','N/A')}")
+            st.markdown(f"[Visit Channel]({suggestion.get('Channel Link','#')})")
         else:
-            st.warning("⚠️ Please enter at least one channel handle.")
+            st.info("ℹ️ No new similar channels could be found.")
