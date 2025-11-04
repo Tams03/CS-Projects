@@ -16,11 +16,11 @@ def get_channel_id(handle, youtube):
     if "youtube.com/@" in handle:
         handle = handle.split("/@")[-1].split("/")[0]
 
-    # 3️ Remove leading @ if handle only
+    # 3️ Plain @handle
     if handle.startswith("@"):
         handle = handle[1:]
 
-    # 4️ Fallback: search by name
+    # 4️ Try searching by handle
     try:
         request = youtube.search().list(
             part="snippet",
@@ -29,12 +29,14 @@ def get_channel_id(handle, youtube):
             maxResults=5
         )
         response = request.execute()
-        if "items" in response and len(response["items"]) > 0:
-            # Try exact match on title first
+        if "items" in response:
+            # Look for an exact match (ignore spaces and case)
             for item in response["items"]:
-                if handle.lower().replace(" ", "") in item["snippet"]["title"].lower().replace(" ", ""):
+                title = item["snippet"]["title"].lower().replace(" ", "")
+                query = handle.lower().replace(" ", "")
+                if query in title or title in query:
                     return item["id"]["channelId"]
-            # fallback to first result
+            # fallback to first result if no exact match
             return response["items"][0]["id"]["channelId"]
     except Exception as e:
         print("Error getting channel ID:", e)
