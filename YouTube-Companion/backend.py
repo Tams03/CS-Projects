@@ -3,7 +3,7 @@ from googleapiclient.discovery import build
 from collections import Counter
 from datetime import datetime
 
-API_KEY = 'YOUR_API_KEY_HERE'  # Replace with your API key
+API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 
