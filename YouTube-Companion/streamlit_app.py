@@ -1,5 +1,9 @@
 import streamlit as st
 from backend import compare_channels, get_channel_data, suggest_channel_based_on_others
+from googleapiclient.discovery import build
+
+API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
+youtube = build('youtube', 'v3', developerKey=API_KEY)
 
 # --- PAGE CONFIG ---
 st.set_page_config(page_title="YouTube Companion", layout="wide")
@@ -40,7 +44,7 @@ if action == "Get Channel Data":
     
     if st.button("Get Data"):
         if channel_handle:
-            data = get_channel_data(channel_handle)
+            data = get_channel_data(channel_handle, youtube)
             if data:
                 st.success("✅ Channel Data Retrieved Successfully!")
                 st.markdown(f"**Channel Name:** {data['YouTube Handle']}")
@@ -62,7 +66,7 @@ elif action == "Compare Channels":
     if st.button("Compare"):
         if channel_handles_input:
             channel_handles = [h.strip() for h in channel_handles_input.split(",") if h.strip()]
-            comparison = compare_channels(channel_handles)
+            comparison = compare_channels(channel_handles, youtube)
             if comparison:
                 st.success("✅ Comparison Completed!")
                 for i, ch in enumerate(comparison, 1):
@@ -89,11 +93,12 @@ elif action == "Suggest New Channels":
     if st.button("Suggest"):
         if channel_handles_input:
             channel_handles = [h.strip() for h in channel_handles_input.split(",") if h.strip()]
-            suggestion = suggest_channel_based_on_others(channel_handles)
+            suggestion = suggest_channel_based_on_others(channel_handles, youtube)
             if suggestion:
                 st.success("✅ Suggested Channel Found!")
-                st.markdown(f"**Channel Name:** {suggestion.get('title', 'N/A')}")
-                st.markdown(f"[Visit Channel](https://www.youtube.com/channel/{suggestion.get('channelId', '')})")
+                st.markdown(f"**Channel Name:** {suggestion.get('Channel Name', 'N/A')}")
+                st.markdown(f"[Visit Channel]({suggestion.get('Channel Link', '#')})")
+
             else:
                 st.info("ℹ️ No new similar channels could be found.")
         else:
