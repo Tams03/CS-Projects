@@ -47,12 +47,6 @@ The project was fully implemented solo, showcasing end-to-end design, coding, an
 
 ---
 
-## ⚙️ Hardware Components
-
-N/A  
-
----
-
 ## 🚀 Core Features
 
 - Channel data retrieval  
