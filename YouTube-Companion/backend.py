@@ -5,20 +5,41 @@ from datetime import datetime
 API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
 youtube = build('youtube', 'v3', developerKey=API_KEY)
 
-def get_channel_id(handle, youtube):
+def get_channel_id(handle):
+    handle = handle.strip()
+
+    # 1️ Full channel URL
+    if "youtube.com/channel/" in handle:
+        return handle.split("/channel/")[-1].split("/")[0]
+
+    # 2️ Full @handle URL
+    if "youtube.com/@" in handle:
+        handle = handle.split("/@")[-1].split("/")[0]
+
+    # 3️ Remove leading @ if handle only
+    if handle.startswith("@"):
+        handle = handle[1:]
+
+    # 4️ Fallback: search by name
     try:
         request = youtube.search().list(
-            part='snippet',
+            part="snippet",
+            type="channel",
             q=handle,
-            type='channel'
+            maxResults=5
         )
         response = request.execute()
-        if 'items' in response and len(response['items']) > 0:
-            return response['items'][0]['id']['channelId']
-        return None
+        if "items" in response and len(response["items"]) > 0:
+            # Try exact match on title first
+            for item in response["items"]:
+                if handle.lower().replace(" ", "") in item["snippet"]["title"].lower().replace(" ", ""):
+                    return item["id"]["channelId"]
+            # fallback to first result
+            return response["items"][0]["id"]["channelId"]
     except Exception as e:
-        print(f"Error message: {e}")
+        print("Error getting channel ID:", e)
         return None
+
 
 def get_all_video_categories(channel_id, youtube, max_results=50):
     categories = []
