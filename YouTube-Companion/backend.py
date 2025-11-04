@@ -9,7 +9,7 @@ import locale
 locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 # Replace with your own API key
-API_KEY = 'YOUR_API_KEY_HERE'
+API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
 
 # Initialize the YouTube API client
 youtube = build('youtube', 'v3', developerKey=API_KEY)
