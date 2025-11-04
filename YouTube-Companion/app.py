@@ -1,13 +1,15 @@
 # app.py
 import streamlit as st
-from backend.py import (
+from backend import (
     get_channel_data,
+    get_channel_id,
     compare_channels,
     suggest_channel_based_on_others,
     calculate_content_frequency,
     get_most_popular_video,
     rank_channels,
-    best_channel
+    best_channel,
+    youtube
 )
 
 st.set_page_config(page_title="YouTube Channel Analyzer", layout="wide")
@@ -29,8 +31,10 @@ action = st.radio("Choose Action:", ["Compare Channels", "Get Channel Data", "Su
 # ------------------- 1. Compare Channels -------------------
 if action == "Compare Channels":
     st.header("Compare Multiple YouTube Channels")
-    channels_input = st.text_area("Enter two or more channel names (comma or newline separated):", "")
-    if st.button("Run Comparison"):
+    with st.form("compare_form"):
+        channels_input = st.text_area("Enter two or more channel names (comma or newline separated):", "")
+        submit = st.form_submit_button("Run Comparison")
+    if submit:
         handles = [h.strip() for h in channels_input.replace("\n", ",").split(",") if h.strip()]
         if len(handles) < 2:
             st.warning("Please enter at least two channels.")
@@ -67,20 +71,17 @@ if action == "Compare Channels":
 # ------------------- 2. Get Channel Data -------------------
 elif action == "Get Channel Data":
     st.header("Get Detailed Data for YouTube Channels")
-    channels_input = st.text_area("Enter one or more channel names (comma or newline separated):", "")
-    if st.button("Get Data"):
+    with st.form("get_data_form"):
+        channels_input = st.text_area("Enter one or more channel names (comma or newline separated):", "")
+        submit = st.form_submit_button("Get Data")
+    if submit:
         handles = [h.strip() for h in channels_input.replace("\n", ",").split(",") if h.strip()]
         if not handles:
             st.warning("Please enter at least one channel.")
         else:
             st.info("Fetching channel data...")
             for handle in handles:
-                cid = None
-                try:
-                    from backend_v3_complete import get_channel_id
-                    cid = get_channel_id(handle)
-                except:
-                    st.error(f"Error getting channel ID for {handle}")
+                cid = get_channel_id(handle)
                 if not cid:
                     st.error(f"Channel '{handle}' not found.")
                     continue
@@ -98,9 +99,12 @@ elif action == "Get Channel Data":
                 st.write(f"Subscribers: {data['Subscribers']:,}")
                 st.write(f"Views: {data['Views']:,}")
                 st.write(f"Videos: {data['Videos']:,}")
-                st.write(f"Content Frequency: {content_freq if content_freq else 'N/A'} days")
+                if content_freq:
+                    st.write(f"Content Frequency: {content_freq} days")
+                else:
+                    st.write("Content Frequency: N/A")
                 st.write(f"Most Popular Video: {popular_video if popular_video else 'N/A'}")
-                st.write(f"Engagement Rate: {round((data['Views']/data['Subscribers']*100) if data['Subscribers']>0 else 0, 2)}%")
+                st.write(f"Engagement Rate: {calculate_engagement_rate(data)}%")
                 st.markdown("---")
 
 # ------------------- 3. Suggest Me a Channel -------------------
@@ -109,8 +113,10 @@ elif action == "Suggest Me a Channel":
     option = st.selectbox("Select input type:", ["Based on Channels You Like", "Based on a Topic"])
     
     if option == "Based on Channels You Like":
-        channels_input = st.text_area("Enter channels you like (comma or newline separated):", "")
-        if st.button("Get Suggestion"):
+        with st.form("suggest_channels_form"):
+            channels_input = st.text_area("Enter channels you like (comma or newline separated):", "")
+            submit = st.form_submit_button("Get Suggestion")
+        if submit:
             handles = [h.strip() for h in channels_input.replace("\n", ",").split(",") if h.strip()]
             if not handles:
                 st.warning("Please enter at least one channel.")
@@ -118,17 +124,18 @@ elif action == "Suggest Me a Channel":
                 suggestion = suggest_channel_based_on_others(handles)
                 if suggestion:
                     st.success("Suggested Channel:")
-                    st.markdown(f"[{suggestion['Handle']}]({suggestion['Link']})")
+                    st.markdown(f"**[{suggestion['Handle']}]({suggestion['Link']})**")
                 else:
                     st.error("No similar channels found.")
     elif option == "Based on a Topic":
-        topic = st.text_input("Enter a topic or keyword:", "")
-        if st.button("Get Suggestion by Topic"):
+        with st.form("suggest_topic_form"):
+            topic = st.text_input("Enter a topic or keyword:", "")
+            submit = st.form_submit_button("Get Suggestion by Topic")
+        if submit:
             if not topic.strip():
                 st.warning("Please enter a topic.")
             else:
                 # Simple search suggestion
-                from backend_v3_complete import youtube
                 try:
                     response = youtube.search().list(part="snippet", type="channel", q=topic, maxResults=1).execute()
                     if response.get('items'):
