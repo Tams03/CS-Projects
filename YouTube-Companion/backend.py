@@ -8,14 +8,12 @@ from googleapiclient.discovery import build
 from collections import Counter
 from datetime import datetime
 import matplotlib.pyplot as plt
-import locale
 
 # ---------------------------
 # Configuration
 # ---------------------------
-API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
+API_KEY = 'YOUR_API_KEY_HERE'  # replace with your actual API key
 youtube = build('youtube', 'v3', developerKey=API_KEY)
-locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 # ---------------------------
 # Part 1 - Retrieve channel information
@@ -27,8 +25,7 @@ def get_channel_id(handle):
         request = youtube.search().list(part='snippet', q=handle, type='channel')
         response = request.execute()
         if 'items' in response and len(response['items']) > 0:
-            channel_info = response['items'][0]
-            return channel_info['id']['channelId']
+            return response['items'][0]['id']['channelId']
         else:
             print(f"No channel found for handle {handle}")
             return None
@@ -37,7 +34,7 @@ def get_channel_id(handle):
         return None
 
 def get_all_video_categories(channel_id, max_results=50):
-    """Fetch a limited number of videos from the channel and return a list of categories."""
+    """Fetch video categories from a channel."""
     categories = []
     try:
         request = youtube.search().list(part='snippet', channelId=channel_id, maxResults=max_results, type='video')
@@ -47,8 +44,7 @@ def get_all_video_categories(channel_id, max_results=50):
             video_request = youtube.videos().list(part='snippet', id=video_id)
             video_response = video_request.execute()
             if 'items' in video_response and len(video_response['items']) > 0:
-                category_id = video_response['items'][0]['snippet']['categoryId']
-                categories.append(category_id)
+                categories.append(video_response['items'][0]['snippet']['categoryId'])
     except Exception as e:
         print(f"Error fetching video categories for channel ID {channel_id}: {e}")
     return categories
@@ -72,15 +68,14 @@ def get_channel_data(channel_id):
         request = youtube.channels().list(part='snippet,statistics,contentDetails', id=channel_id)
         response = request.execute()
         if 'items' in response and len(response['items']) > 0:
-            channel_info = response['items'][0]
-            data = {
-                'YouTube Handle': channel_info['snippet']['title'],
+            info = response['items'][0]
+            return {
+                'YouTube Handle': info['snippet']['title'],
                 'YouTube Channel Link': f"https://www.youtube.com/channel/{channel_id}",
-                'YouTube Subscribers': channel_info['statistics'].get('subscriberCount', '0'),
-                'YouTube Views': channel_info['statistics'].get('viewCount', '0'),
-                'YouTube Videos': channel_info['statistics'].get('videoCount', '0')
+                'YouTube Subscribers': int(info['statistics'].get('subscriberCount', 0)),
+                'YouTube Views': int(info['statistics'].get('viewCount', 0)),
+                'YouTube Videos': int(info['statistics'].get('videoCount', 0))
             }
-            return data
         else:
             print(f"No data found for channel ID {channel_id}")
             return None
@@ -89,20 +84,19 @@ def get_channel_data(channel_id):
         return None
 
 def calculate_content_frequency(channel_id):
-    """Calculate content upload frequency based on the last several video upload dates."""
+    """Calculate content upload frequency."""
     try:
         request = youtube.activities().list(part='snippet,contentDetails', channelId=channel_id, maxResults=50)
         response = request.execute()
-        upload_dates = []
-        for item in response.get('items', []):
-            if 'publishedAt' in item['snippet']:
-                upload_date = datetime.strptime(item['snippet']['publishedAt'], '%Y-%m-%dT%H:%M:%S%z')
-                upload_dates.append(upload_date)
+        upload_dates = [
+            datetime.strptime(item['snippet']['publishedAt'], '%Y-%m-%dT%H:%M:%S%z')
+            for item in response.get('items', [])
+            if 'publishedAt' in item['snippet']
+        ]
         if len(upload_dates) > 1:
             upload_dates.sort(reverse=True)
             intervals = [(upload_dates[i] - upload_dates[i+1]).days for i in range(len(upload_dates)-1)]
-            avg_interval = sum(intervals) / len(intervals)
-            return avg_interval
+            return sum(intervals) / len(intervals)
         else:
             return None
     except Exception as e:
@@ -110,134 +104,95 @@ def calculate_content_frequency(channel_id):
         return None
 
 def get_most_popular_video(channel_id):
-    """Get the most popular video (highest view count) for a given channel."""
+    """Get the most popular video for a channel."""
     try:
         request = youtube.search().list(part='snippet', channelId=channel_id, maxResults=1, type='video', order='viewCount')
         response = request.execute()
         if 'items' in response and len(response['items']) > 0:
-            popular_video = response['items'][0]
-            video_id = popular_video['id']['videoId']
-            video_title = popular_video['snippet']['title']
-            return f"{video_title} (https://www.youtube.com/watch?v={video_id})"
+            video = response['items'][0]
+            vid_id = video['id']['videoId']
+            title = video['snippet']['title']
+            return f"{title} (https://www.youtube.com/watch?v={vid_id})"
         else:
             return None
     except Exception as e:
         print(f"Error fetching most popular video for channel ID {channel_id}: {e}")
         return None
 
+# ---------------------------
+# Part 2 - Compare channels and visualize
+# ---------------------------
+
 def compare_channels(channel_handles):
-    """Compare channels by retrieving their predominant categories and engagement rates."""
     comparison_data = []
     for handle in channel_handles:
         channel_id = get_channel_id(handle)
         if not channel_id:
             continue
         categories = get_all_video_categories(channel_id)
-        if not categories:
-            print(f"Unable to retrieve categories for channel {handle}.")
-            continue
         if categories:
-            most_common_category_id, _ = Counter(categories).most_common(1)[0]
-            category_name = get_category_name(most_common_category_id)
-            channel_data = get_channel_data(channel_id)
-            if channel_data:
-                views = int(channel_data['YouTube Views'])
-                subscribers = int(channel_data['YouTube Subscribers'])
-                engagement_rate = (views / subscribers) * 100 if subscribers > 0 else 0
-                content_frequency = calculate_content_frequency(channel_id)
-                most_popular_video = get_most_popular_video(channel_id)
-                channel_data['Most Common Category'] = category_name
-                channel_data['Engagement Rate (%)'] = round(engagement_rate, 2)
-                if content_frequency:
-                    channel_data['Content Frequency'] = f"New content uploaded every {round(content_frequency, 2)} days"
-                else:
-                    channel_data['Content Frequency'] = "Not enough data to determine frequency"
-                channel_data['Most Popular Video'] = most_popular_video or "No popular video found"
-                comparison_data.append(channel_data)
-    # Display
-    print(f"\nChannel Data:\n")
-    for channel in comparison_data:
-        print(f"Handle: {channel['YouTube Handle']}")
-        print(f"Channel Link: {channel['YouTube Channel Link']}")
-        print(f"Subscribers: {channel['YouTube Subscribers']}")
-        print(f"Views: {channel['YouTube Views']}")
-        print(f"Videos: {channel['YouTube Videos']}")
-        print(f"Engagement Rate: {channel['Engagement Rate (%)']}%")
-        print(f"Overall Content Category: {channel['Most Common Category']}")
-        print(f"Content Frequency: {channel['Content Frequency']}")
-        print(f"Most Popular Video: {channel['Most Popular Video']}")
-        print("-" * 50)
+            most_common_id, _ = Counter(categories).most_common(1)[0]
+            category_name = get_category_name(most_common_id)
+        else:
+            category_name = "Unknown"
+        data = get_channel_data(channel_id)
+        if data:
+            views = data['YouTube Views']
+            subs = data['YouTube Subscribers']
+            engagement = (views / subs) * 100 if subs > 0 else 0
+            freq = calculate_content_frequency(channel_id)
+            data['Most Common Category'] = category_name
+            data['Engagement Rate (%)'] = round(engagement, 2)
+            data['Content Frequency'] = f"New content every {round(freq, 2)} days" if freq else "Not enough data"
+            data['Most Popular Video'] = get_most_popular_video(channel_id) or "No popular video found"
+            comparison_data.append(data)
+    return comparison_data
 
-# ---------------------------
-# Part 2 - Compare channels and visualize
-# ---------------------------
+def format_number(n):
+    """Format numbers with commas."""
+    return f"{n:,}"
 
 def compare_multiple_channels_and_recommend_with_graph(channel_handles):
-    """Compare multiple channels and visualize the comparison with graphs."""
-    comparison_data = []
-    for handle in channel_handles:
-        channel_id = get_channel_id(handle)
-        if not channel_id:
-            continue
-        channel_data = get_channel_data(channel_id)
-        if channel_data:
-            views = channel_data['YouTube Views']
-            subscribers = channel_data['YouTube Subscribers']
-            engagement_rate = (views / subscribers) * 100 if subscribers > 0 else 0
-            engagement_rate = min(engagement_rate, 100)
-            channel_data['Engagement Rate (%)'] = round(engagement_rate, 2)
-            comparison_data.append(channel_data)
-    if not comparison_data:
-        print("No valid data found for any channel.")
-        return
-    # Sort
-    comparison_data_sorted_by_subscribers = sorted(comparison_data, key=lambda x: x['YouTube Subscribers'], reverse=True)
-    comparison_data_sorted_by_views = sorted(comparison_data, key=lambda x: x['YouTube Views'], reverse=True)
-    comparison_data_sorted_by_engagement = sorted(comparison_data, key=lambda x: x['Engagement Rate (%)'], reverse=True)
-    # Display
-    print("\nChannel Comparison based on Subscribers:")
-    for i, channel in enumerate(comparison_data_sorted_by_subscribers, 1):
-        print(f"{i}. {channel['YouTube Handle']} - {locale.format_string('%d', channel['YouTube Subscribers'], grouping=True)} Subscribers")
-    print("\nChannel Comparison based on Views:")
-    for i, channel in enumerate(comparison_data_sorted_by_views, 1):
-        print(f"{i}. {channel['YouTube Handle']} - {locale.format_string('%d', channel['YouTube Views'], grouping=True)} Views")
-    print("\nChannel Comparison based on Engagement Rate:")
-    for i, channel in enumerate(comparison_data_sorted_by_engagement, 1):
-        print(f"{i}. {channel['YouTube Handle']} - {channel['Engagement Rate (%)']}% Engagement Rate")
-    print("-" * 50)
-    # Recommendation
-    best_by_engagement = comparison_data_sorted_by_engagement[0]
-    best_by_views = comparison_data_sorted_by_views[0]
-    print("\n**Recommendation**:")
-    print(f"Best Channel by Engagement Rate: {best_by_engagement['YouTube Handle']} with an engagement rate of {best_by_engagement['Engagement Rate (%)']}%")
-    print(f"Best Channel by Views: {best_by_views['YouTube Handle']} with {locale.format_string('%d', best_by_views['YouTube Views'], grouping=True)} views")
+    """Prepare data for display and recommendations."""
+    data_list = compare_channels(channel_handles)
+    if not data_list:
+        return [], "No valid channel data found."
+
+    # Sort channels
+    sorted_by_subs = sorted(data_list, key=lambda x: x['YouTube Subscribers'], reverse=True)
+    sorted_by_views = sorted(data_list, key=lambda x: x['YouTube Views'], reverse=True)
+    sorted_by_engagement = sorted(data_list, key=lambda x: x['Engagement Rate (%)'], reverse=True)
+
+    recommendation = {
+        "Best by Engagement": sorted_by_engagement[0]['YouTube Handle'],
+        "Engagement Rate": sorted_by_engagement[0]['Engagement Rate (%)'],
+        "Best by Views": sorted_by_views[0]['YouTube Handle'],
+        "Views": sorted_by_views[0]['YouTube Views']
+    }
+
+    return data_list, recommendation
 
 # ---------------------------
-# Part 3 - Recommend new channels based on others
+# Part 3 - Suggest channels
 # ---------------------------
 
-def suggest_channel_based_on_others(channel_handles, youtube):
-    """Suggest one new channel based on similarities with other channels you like."""
-    suggested_channel = None
-    input_channel_ids = []
-    for handle in channel_handles:
-        channel_id = get_channel_id(handle)
-        if channel_id:
-            input_channel_ids.append(channel_id)
-    for channel_id in input_channel_ids:
-        channel_data = get_channel_data(youtube, channel_id)
-        if channel_data:
-            search_request = youtube.search().list(part="snippet", type="channel", q=channel_data['YouTube Handle'], maxResults=10)
-            search_response = search_request.execute()
-            for item in search_response['items']:
-                if item['snippet']['channelId'] not in input_channel_ids:
-                    suggested_channel = item['snippet']
+def suggest_channel_based_on_others(channel_handles):
+    """Suggest a new channel based on liked channels."""
+    suggested = None
+    input_ids = [get_channel_id(h) for h in channel_handles if get_channel_id(h)]
+    for cid in input_ids:
+        data = get_channel_data(cid)
+        if data:
+            search_request = youtube.search().list(part="snippet", type="channel", q=data['YouTube Handle'], maxResults=10)
+            response = search_request.execute()
+            for item in response['items']:
+                new_cid = item['snippet']['channelId']
+                if new_cid not in input_ids:
+                    suggested = {
+                        "title": item['snippet']['title'],
+                        "link": f"https://www.youtube.com/channel/{new_cid}"
+                    }
                     break
-            if suggested_channel:
-                break
-    if suggested_channel:
-        print("\nSuggested Channel Based on Your Preferences:\n")
-        print(f"Channel Name: {suggested_channel['title']}")
-        print(f"Channel Link: https://www.youtube.com/channel/{suggested_channel['channelId']}")
-    else:
-        print("No new similar channels found.")
+        if suggested:
+            break
+    return suggested
