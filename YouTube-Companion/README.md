@@ -3,7 +3,7 @@
 **Course:** Advanced Development  
 **Grade:** 98/100  
 **Type:** Python Application & Data Analysis Tool  
-**Technologies:** Python, YouTube API  
+**Technologies:** Python, YouTube API, Streamlit  
 
 ---
 
@@ -25,9 +25,9 @@ It helps users quickly gain insights into channel performance, compare multiple 
 
 ## 🎯 Goals
 
-- Retrieve detailed channel information including subscribers, views, video count, engagement rate, content frequency, most popular video, and overall category  
+- Retrieve detailed channel information including subscribers, views, video count, engagement rate, content frequency (average days between uploads), most popular video, and overall category  
 - Compare multiple channels based on key metrics to identify top performers  
-- Suggest new channels based on input channels or topics 
+- Suggest new channels based on input channels or topics  
 
 ---
 
@@ -36,7 +36,7 @@ It helps users quickly gain insights into channel performance, compare multiple 
 - Full YouTube API integration for real-time data retrieval  
 - Data processing entirely in Python  
 - Designed outputs for comparison and recommendations  
-- Developed a professional interactive page for non-coders
+- Developed a professional interactive page for non-coders  
 
 ---
 
@@ -50,10 +50,39 @@ It helps users quickly gain insights into channel performance, compare multiple 
 
 ## 🚀 Core Features
 
-- Channel data retrieval  
+- Channel data retrieval (text-based outputs with clickable YouTube links)  
 - Channel comparison by Subscribers, Views, and Engagement Rate  
 - Personalized channel recommendations  
+- Real-time data using YouTube API  
 - User-friendly interactive page for anyone to access and explore insights  
+
+---
+
+## 🖥️ Interactive Page Instructions (For Users – No Coding Required)
+
+### How to Access
+
+The app is hosted online and can be accessed through your browser:  
+[YouTube Companion App](https://cs-projects-youtube-companion.streamlit.app/)
+
+### How to Use
+
+1. Choose one of the three actions:
+
+   - **Get Channel Data** – Enter a channel handle or URL to see detailed statistics and metrics  
+   - **Compare Channels** – Enter two or more channel handles or URLs to compare subscribers, views, and engagement  
+   - **Suggest Me a Channel** – Enter channels you like or a topic to get a recommended similar channel  
+
+2. Input your channel names, handles, or topic in the provided text box  
+
+3. Click the corresponding action button  
+
+4. View results instantly (text-based outputs):
+
+   - Metrics such as subscribers, views, videos, engagement rate, content frequency, and most popular video  
+   - Recommended channels displayed with clickable YouTube links  
+
+Enjoy the insights and explore recommended channels **without needing to know Python**  
 
 ---
 
@@ -77,88 +106,17 @@ Python, YouTube API, Streamlit
 
 ---
 
-## 🖥️ Interactive Page Instructions (For Users – No Coding Required)
-
-### How to Access
-
-The app is hosted online and can be accessed through your browser:  
-[Streamlit App Link](#) *(replace with your actual deployed URL)*
-
-### How to Use
-
-1. Choose one of the three actions:
-
-   - **Compare Channels** – Enter two or more channel names to compare subscribers, views, and engagement  
-   - **Get Channel Data** – Enter one or more channels to see detailed statistics and metrics  
-   - **Suggest Me a Channel** – Either:  
-     - Enter channels you like to get a similar channel recommendation, or  
-     - Enter a topic you like to get a recommended channel based on that topic  
-
-2. Input your channel names or topic in the provided text box  
-
-3. Click the corresponding action button  
-
-4. View results instantly:
-
-   - Comparison results show as tables and key metrics  
-   - Channel suggestions display with clickable YouTube links  
-
-Enjoy the insights and explore recommended channels **without needing to know Python**  
-
----
-
-## 💻 Developer Instructions (Optional – For Running or Editing the App)
-
-### Requirements
-
-Make sure you have Python installed. Required packages:
-
-```bash
-pip install streamlit google-api-python-client pandas matplotlib
-````
-
-### Running Locally
-
-Ensure `backend.py` and `app.py` are in the same directory
-
-Run the app:
-
-```bash
-streamlit run app.py
-```
-
-Your default browser will open with the interactive YouTube Companion page
-
-### Optional Deployment
-
-To make the app accessible online:
-
-**Streamlit Cloud (free for small projects)**
-
-1. Push `app.py`, `backend.py`, and `requirements.txt` to GitHub
-2. Go to Streamlit Cloud and connect your repository
-3. Your app will be hosted online with a shareable URL
-
-Other hosting options:
-
-* Heroku
-* AWS Elastic Beanstalk
-* Google Cloud Run
-
----
-
 ## 📂 Project Files
 
-* Backend Code: `backend.py`
-* Interactive App: `app.py`
-* Github Repository: [Link]()
-* Colab Notebook: [Link](https://github.com/Tams03/CS-Projects/blob/main/YouTube-Companion/YouTube-Companion-code)
-* Example outputs of channel data and recommendations
+* Colab Notebook: [Link](https://github.com/Tams03/CS-Projects/blob/main/YouTube-Companion/YouTube-Companion-code)  
+* Live Interactive App: [YouTube Companion App](https://cs-projects-youtube-companion.streamlit.app/)  
+* Example outputs of channel data and recommendations  
 
 ---
 
 ## 📈 Results & Reflection
 
-* Successfully created a YouTube channel analysis tool that retrieves, compares, and recommends channels
-* Enables automatic comparisons and personalized recommendations, saving time and effort
-* Demonstrates Python programming, API integration, and data analysis skills
+- Successfully created a YouTube channel analysis tool that retrieves, compares, and recommends channels  
+- Outputs are **text-based** with clickable links for easy exploration  
+- Enables automatic comparisons and personalized recommendations, saving time and effort  
+- Demonstrates Python programming, API integration, and data analysis skills  
