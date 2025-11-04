@@ -1,5 +1,5 @@
 import streamlit as st
-from backend import compare_channels, get_channel_data, suggest_channel_based_on_others
+from backend import compare_channels, get_channel_data, suggest_channel_based_on_others, get_channel_id
 from googleapiclient.discovery import build
 
 API_KEY = 'AIzaSyCXEhvGzLjh6IjRogjjJ3CJ2g4J9P64Yho'
