@@ -63,7 +63,7 @@ It helps users quickly gain insights into channel performance, compare multiple 
 ### How to Access
 
 The app is hosted online and can be accessed through your browser:  
-[YouTube Companion App](https://cs-projects-youtube-companion.streamlit.app/)
+[Link](https://appapppy-youtube-companion.streamlit.app/)
 
 ### How to Use
 
@@ -109,7 +109,7 @@ Python, YouTube API, Streamlit
 ## 📂 Project Files
 
 * Colab Notebook: [Link](https://github.com/Tams03/CS-Projects/blob/main/YouTube-Companion/YouTube-Companion-code)  
-* Live Interactive App: [YouTube Companion App](https://cs-projects-youtube-companion.streamlit.app/)  
+* Demo page: [Link](https://appapppy-youtube-companion.streamlit.app/)  
 * Example outputs of channel data and recommendations  
 
 ---
