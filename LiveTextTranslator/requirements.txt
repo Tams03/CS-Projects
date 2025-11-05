@@ -1,7 +1,7 @@
-streamlit
-fastapi
-uvicorn
-websockets
-transformers
-torch
-pydantic
+streamlit==1.26.0
+requests==2.32.0
+fastapi==0.109.0
+uvicorn==0.24.0
+transformers==4.34.0
+torch>=2.0.1
+pydantic==2.6.1
