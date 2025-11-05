@@ -1,91 +1,80 @@
 import streamlit as st
-import requests
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-# Page config
-st.set_page_config(
-    page_title="LinguaLink 🌐 Live Translator",
-    layout="wide",
-    page_icon="🌐"
-)
-
-# Custom CSS for green theme
+st.set_page_config(page_title="Live Text Translator 🌐", layout="wide")
 st.markdown(
-    """
-    <style>
-    .stApp {background-color: #e6f2e6;}
-    .stButton>button {background-color: #2e7d32; color: white;}
-    .stTextInput>div>div>input {background-color: #f0fff0;}
-    </style>
-    """,
+    "<h1 style='color:green;'>🌐 Live Text Translator (LinguaLink)</h1>"
+    "<p style='color:green;'>Simulate a bilingual conversation — type in either chat and see the translation instantly!</p>",
     unsafe_allow_html=True
 )
 
-# Title
-st.markdown("<h1 style='text-align:center; color:#2e7d32;'>🌐 Live Text Translator (LinguaLink)</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align:center;'>Simulate a bilingual chat — type in one language and see it translated in the other!</p>", unsafe_allow_html=True)
+# Load model once
+@st.cache_resource
+def load_model():
+    print("[INFO] Loading translation model...")
+    model_name = "facebook/nllb-200-distilled-600M"
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+    print("[INFO] Model loaded successfully.")
+    return tokenizer, model
 
-# Sidebar: language selection
-st.sidebar.header("🌎 Choose Languages")
-LANG_MAP = {
-    "English": "en",
-    "Hebrew": "he",
-    "Spanish": "es",
-    "Arabic": "ar",
-    "Russian": "ru",
-    "French": "fr"
+tokenizer, model = load_model()
+
+LANGUAGE_CODES = {
+    "English": "eng_Latn",
+    "Hebrew": "heb_Hebr",
+    "Spanish": "spa_Latn",
+    "Arabic": "arb_Arab",
+    "Russian": "rus_Cyrl",
+    "French": "fra_Latn"
 }
 
-lang_a_name = st.sidebar.selectbox("Language A", list(LANG_MAP.keys()), index=0)
-lang_b_name = st.sidebar.selectbox("Language B", list(LANG_MAP.keys()), index=1)
-lang_a = LANG_MAP[lang_a_name]
-lang_b = LANG_MAP[lang_b_name]
+def translate(text, source, target):
+    if source == target:
+        return text
+    tokenizer.src_lang = LANGUAGE_CODES[source]
+    encoded = tokenizer(text, return_tensors="pt")
+    generated_tokens = model.generate(
+        **encoded,
+        forced_bos_token_id=tokenizer.lang_code_to_id[LANGUAGE_CODES[target]],
+        max_length=200
+    )
+    return tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
 
-# Backend URL
-BACKEND_URL = "http://localhost:8000/translate"  # replace with deployed backend URL
-
-# Session state for dual chat
-if "chat_a" not in st.session_state:
-    st.session_state.chat_a = []
-if "chat_b" not in st.session_state:
-    st.session_state.chat_b = []
-
-# Function to call backend
-def translate_text(text, source_lang, target_lang):
-    try:
-        res = requests.post(BACKEND_URL, json={
-            "text": text,
-            "source_lang": source_lang,
-            "target_lang": target_lang
-        })
-        if res.status_code == 200:
-            return res.json().get("translated_text", "[Error]")
-        return "[Error]"
-    except Exception as e:
-        return f"[Error: {e}]"
-
-# Columns for dual chat
+# --- Dual chat interface ---
 col1, col2 = st.columns(2)
 
-# Chat A panel
-with col1:
-    st.subheader(f"Chat in {lang_a_name}")
-    for msg in st.session_state.chat_a:
-        st.markdown(msg)
-    msg_a = st.text_input(f"Type in {lang_a_name}", key="input_a")
-    if st.button(f"Send {lang_a_name} → {lang_b_name}", key="btn_a") and msg_a:
-        st.session_state.chat_a.append(f"**You ({lang_a_name}):** {msg_a}")
-        translated = translate_text(msg_a, lang_a, lang_b)
-        st.session_state.chat_b.append(f"**Translated ({lang_b_name}):** {translated}")
-        st.experimental_rerun()
+if "chat_A" not in st.session_state:
+    st.session_state.chat_A = []
+if "chat_B" not in st.session_state:
+    st.session_state.chat_B = []
 
-# Chat B panel
+# Chat A
+with col1:
+    st.subheader("Chat A")
+    lang_A = st.selectbox("Language", list(LANGUAGE_CODES.keys()), key="lang_A")
+    msg_A = st.text_input("Type a message...", key="input_A")
+    if st.button("Send from A → B", key="send_A"):
+        if msg_A.strip():
+            translated = translate(msg_A, lang_A, st.session_state.lang_B)
+            st.session_state.chat_A.append(f"You ({lang_A}): {msg_A}")
+            st.session_state.chat_B.append(f"Translated ({st.session_state.lang_B}): {translated}")
+
+    st.markdown("**Conversation:**")
+    for m in st.session_state.chat_A:
+        st.markdown(m)
+
+# Chat B
 with col2:
-    st.subheader(f"Chat in {lang_b_name}")
-    for msg in st.session_state.chat_b:
-        st.markdown(msg)
-    msg_b = st.text_input(f"Type in {lang_b_name}", key="input_b")
-    if st.button(f"Send {lang_b_name} → {lang_a_name}", key="btn_b") and msg_b:
-        st.session_state.chat_b.append(f"**You ({lang_b_name}):** {msg_b}")
-        translated = translate_text(msg_b, lang_b, lang_a)
-        st.session_state.chat_a.append(f"**Translated ({lang_a_name}):** {translated}")
-        st.experimental_rerun()
+    st.subheader("Chat B")
+    lang_B = st.selectbox("Language", list(LANGUAGE_CODES.keys()), key="lang_B")
+    msg_B = st.text_input("Type a message...", key="input_B")
+    if st.button("Send from B → A", key="send_B"):
+        if msg_B.strip():
+            translated = translate(msg_B, lang_B, st.session_state.lang_A)
+            st.session_state.chat_B.append(f"You ({lang_B}): {msg_B}")
+            st.session_state.chat_A.append(f"Translated ({st.session_state.lang_A}): {translated}")
+
+    st.markdown("**Conversation:**")
+    for m in st.session_state.chat_B:
+        st.markdown(m)
