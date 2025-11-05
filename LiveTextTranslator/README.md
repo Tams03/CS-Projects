@@ -3,15 +3,14 @@
 **Course:** Deep Learning and Its Applications  
 **Grade:** 99/100  
 **Type:** Deep Learning & Web Application  
-**Technologies:** Python, NLLB-200, FastAPI, WebSocket, GitHub Codespaces, Firebase  
+**Technologies:** Python, NLLB-200, FastAPI, WebSocket, GitHub Codespaces, Firebase, Strealit 
 
 ---
 
 ## Overview
 
-Live Text Translator (named LinguaLink) is a real-time translator for text and planned speech conversations, allowing users speaking different languages to communicate seamlessly.  
-The system uses NLLB-200 transformer models for high-accuracy translations and WebSocket-based communication for low-latency interactions.  
-A Telegram bot interface enables group chat translation with per-user language preferences.  
+Live Text Translator (named **LinguaLink**) is a real-time multilingual translator for text and planned speech conversations, allowing users speaking different languages to communicate seamlessly using the **NLLB-200 deep learning model** for high-accuracy translation.  
+Now includes an **interactive demo page** built with **Streamlit**, where you can try live two-way translation.
 The project also lays the groundwork for future speech-to-speech, speech-to-text, and text-to-speech integration.
 
 ---
@@ -83,7 +82,7 @@ The project also lays the groundwork for future speech-to-speech, speech-to-text
 
 ## 🧰 Tools & Technologies
 
-Python, FastAPI, WebSocket, NLLB-200, Telegram Bot (python-telegram-bot), Firestore, GitHub Codespaces, Transformers, PyTorch, NLTK  
+Python, FastAPI, Streamlit, WebSocket, Transformers (NLLB-200), PyTorch  
 
 ---
 
