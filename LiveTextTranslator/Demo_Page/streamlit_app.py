@@ -46,24 +46,24 @@ LANGUAGE_CODES = {
 
 # --- Translation function ---
 def translate_text(text, source_lang, target_lang):
-    if source_lang == target_lang:
-        return text
     if source_lang not in LANGUAGE_CODES or target_lang not in LANGUAGE_CODES:
         return "[Unsupported language]"
     tokenizer.src_lang = LANGUAGE_CODES[source_lang]
     encoded = tokenizer(text, return_tensors="pt")
-# Get the BOS token ID in a safe way
+    
+    # Safe way to get the forced_bos_token_id
     if hasattr(tokenizer, "lang_code_to_id"):
         bos_id = tokenizer.lang_code_to_id[LANGUAGE_CODES[target_lang]]
     else:
         bos_id = tokenizer.convert_tokens_to_ids(f"<{LANGUAGE_CODES[target_lang]}>")
-        generated_tokens = model.generate(
-            **encoded,
-            forced_bos_token_id=bos_id,
-            max_length=200
-        )
 
+    generated_tokens = model.generate(
+        **encoded,
+        forced_bos_token_id=bos_id,
+        max_length=200
+    )
     return tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
+
 
 # --- Chat state ---
 if "chat_a" not in st.session_state:
