@@ -1,16 +1,32 @@
 import streamlit as st
-import asyncio
-import json
-import websockets
+import requests
 
-st.set_page_config(page_title="Live Text Translator 🌐", layout="centered")
+# Page config
+st.set_page_config(
+    page_title="LinguaLink 🌐 Live Translator",
+    layout="wide",
+    page_icon="🌐"
+)
 
-st.title("🌐 Live Text Translator (LinguaLink)")
-st.markdown("Chat in different languages — messages are translated instantly!")
+# Custom CSS for green theme
+st.markdown(
+    """
+    <style>
+    .stApp {background-color: #e6f2e6;}
+    .stButton>button {background-color: #2e7d32; color: white;}
+    .stTextInput>div>div>input {background-color: #f0fff0;}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-# Sidebar
+# Title
+st.markdown("<h1 style='text-align:center; color:#2e7d32;'>🌐 Live Text Translator (LinguaLink)</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center;'>Simulate a bilingual chat — type in one language and see it translated in the other!</p>", unsafe_allow_html=True)
+
+# Sidebar: language selection
 st.sidebar.header("🌎 Choose Languages")
-language_map = {
+LANG_MAP = {
     "English": "en",
     "Hebrew": "he",
     "Spanish": "es",
@@ -19,54 +35,57 @@ language_map = {
     "French": "fr"
 }
 
-user_lang = st.sidebar.selectbox("Your Language", list(language_map.keys()), index=0)
-partner_lang = st.sidebar.selectbox("Partner Language", list(language_map.keys()), index=1)
+lang_a_name = st.sidebar.selectbox("Language A", list(LANG_MAP.keys()), index=0)
+lang_b_name = st.sidebar.selectbox("Language B", list(LANG_MAP.keys()), index=1)
+lang_a = LANG_MAP[lang_a_name]
+lang_b = LANG_MAP[lang_b_name]
 
-# Backend WebSocket URL (for local or deployed FastAPI backend)
-BACKEND_URL = "ws://localhost:8000/ws"  # replace with deployed backend URL if needed
+# Backend URL
+BACKEND_URL = "http://localhost:8000/translate"  # replace with deployed backend URL
 
-# Chat state
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+# Session state for dual chat
+if "chat_a" not in st.session_state:
+    st.session_state.chat_a = []
+if "chat_b" not in st.session_state:
+    st.session_state.chat_b = []
 
-# Chat box
-chat_placeholder = st.empty()
+# Function to call backend
+def translate_text(text, source_lang, target_lang):
+    try:
+        res = requests.post(BACKEND_URL, json={
+            "text": text,
+            "source_lang": source_lang,
+            "target_lang": target_lang
+        })
+        if res.status_code == 200:
+            return res.json().get("translated_text", "[Error]")
+        return "[Error]"
+    except Exception as e:
+        return f"[Error: {e}]"
 
-def render_chat():
-    with chat_placeholder.container():
-        for msg in st.session_state.messages:
-            if msg["from"] == "you":
-                st.chat_message("user").markdown(msg["text"])
-            else:
-                st.chat_message("assistant").markdown(f"**Translated:** {msg['text']}")
+# Columns for dual chat
+col1, col2 = st.columns(2)
 
-render_chat()
+# Chat A panel
+with col1:
+    st.subheader(f"Chat in {lang_a_name}")
+    for msg in st.session_state.chat_a:
+        st.markdown(msg)
+    msg_a = st.text_input(f"Type in {lang_a_name}", key="input_a")
+    if st.button(f"Send {lang_a_name} → {lang_b_name}", key="btn_a") and msg_a:
+        st.session_state.chat_a.append(f"**You ({lang_a_name}):** {msg_a}")
+        translated = translate_text(msg_a, lang_a, lang_b)
+        st.session_state.chat_b.append(f"**Translated ({lang_b_name}):** {translated}")
+        st.experimental_rerun()
 
-# User input
-user_input = st.chat_input("Type your message...")
-
-async def chat():
-    async with websockets.connect(BACKEND_URL) as ws:
-        # Send initial language data
-        await ws.send(json.dumps({"lang": language_map[user_lang]}))
-        # Start a receive loop
-        async def receive():
-            while True:
-                try:
-                    data = await ws.recv()
-                    msg = json.loads(data)
-                    if "message" in msg:
-                        st.session_state.messages.append({"from": "partner", "text": msg["message"]})
-                        render_chat()
-                except Exception:
-                    break
-        asyncio.create_task(receive())
-
-        # If user sends a message
-        if user_input:
-            st.session_state.messages.append({"from": "you", "text": user_input})
-            render_chat()
-            await ws.send(json.dumps({"message": user_input}))
-
-if st.button("🔗 Connect & Start Chat"):
-    asyncio.run(chat())
+# Chat B panel
+with col2:
+    st.subheader(f"Chat in {lang_b_name}")
+    for msg in st.session_state.chat_b:
+        st.markdown(msg)
+    msg_b = st.text_input(f"Type in {lang_b_name}", key="input_b")
+    if st.button(f"Send {lang_b_name} → {lang_a_name}", key="btn_b") and msg_b:
+        st.session_state.chat_b.append(f"**You ({lang_b_name}):** {msg_b}")
+        translated = translate_text(msg_b, lang_b, lang_a)
+        st.session_state.chat_a.append(f"**Translated ({lang_a_name}):** {translated}")
+        st.experimental_rerun()
