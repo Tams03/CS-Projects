@@ -3,14 +3,18 @@
 **Course:** Deep Learning and Its Applications  
 **Grade:** 99/100  
 **Type:** Deep Learning & Web Application  
-**Technologies:** Python, NLLB-200, FastAPI, WebSocket, GitHub Codespaces, Firebase, Strealit 
+**Technologies:** Python, NLLB-200 (transformer-based translation model), FastAPI, WebSocket, GitHub Codespaces, Firebase, Streamlit  
 
 ---
 
 ## Overview
 
-Live Text Translator (named **LinguaLink**) is a real-time multilingual translator for text and planned speech conversations, allowing users speaking different languages to communicate seamlessly using the **NLLB-200 deep learning model** for high-accuracy translation.  
-Now includes an **interactive demo page** built with **Streamlit**, where you can try live two-way translation.
+Live Text Translator (named **LinguaLink**) is a real-time multilingual translator for text and planned speech conversations.  
+It allows users speaking different languages to communicate instantly and seamlessly leveraging the **NLLB-200 transformer model** for high-accuracy translation.  
+
+> **Note:** NLLB-200 (No Language Left Behind) is a transformer-based model developed by Meta/Facebook, capable of translating between 200 languages with high accuracy, even for low-resource languages.  
+
+An **interactive demo page** is available to showcase the tool to non-coders and allow them to try live translations.  
 The project also lays the groundwork for future speech-to-speech, speech-to-text, and text-to-speech integration.
 
 ---
@@ -18,28 +22,29 @@ The project also lays the groundwork for future speech-to-speech, speech-to-text
 ## Problem & Motivation
 
 - Around 7,159 languages exist worldwide, but most people speak only 1–2.  
-- Language barriers affect communication in business, healthcare, education, and personal interactions.  
-- Traditional translation tools are slow and impractical for real-time conversations.  
-- LinguaLink addresses this by providing instant, bidirectional translations between multiple languages in text-based chats.
+- Language barriers affect communication in business, healthcare, education, and personal interactions, making communication difficult.  
+- Existing translation tools are often too slow or impractical for real-time conversations.  
+- LinguaLink addresses this by providing instant, bidirectional translations between multiple languages.
 
 ---
 
 ## 🎯 Goals
 
-- Provide real-time translation between multiple languages  
+- Enable real-time translation between multiple languages  
 - Support cross-language communication in group chats  
 - Achieve low-latency, high-accuracy translation using NLLB-200  
-- Prepare for future speech-to-text and text-to-speech integration  
+- Prepare for future speech-to-speech, speech-to-text, and text-to-speech integration  
 
 ---
 
 ## 👩‍💻 My Role
 
 - Implemented server-side translation using NLLB-200 in FastAPI  
-- Built real-time WebSocket chat system  
+- Built real-time WebSocket chat system for multilingual messaging    
 - Conducted stress tests with multiple concurrent clients  
 - Prepared documentation and README  
 - Assisted with project planning and technical decisions  
+- Developed a professional **interactive demo page** for non-coders  
 
 ---
 
@@ -60,6 +65,22 @@ The project also lays the groundwork for future speech-to-speech, speech-to-text
 - Future enhancements: speech-to-speech / speech-to-text / text-to-speech, additional language support  
 - Development Environment: GitHub Codespaces with Python 3.12  
 - Model: NLLB-200-distilled-600M (transformer-based, pre-trained by Meta/Facebook)  
+
+---
+
+## 🖥️ Interactive Demo Page Instructions (For Users – No Coding Required)
+
+### How to Access
+The demo page is hosted online and can be accessed through your browser:  
+[Live Demo Page](#) *(replace with your actual deployed URL)*  
+
+### How to Use
+1. Enter your preferred language and a partner's preferred language  
+2. Type a message in the text box and press “Send”  
+3. Messages are automatically translated for both users in real-time  
+4. Test different language pairs to explore translation quality  
+
+The demo allows non-coders to **experience the tool live** and understand its capabilities without needing any programming knowledge.
 
 ---
 
@@ -89,7 +110,7 @@ Python, FastAPI, Streamlit, WebSocket, Transformers (NLLB-200), PyTorch
 ## 📂 Project Files
 - **Presentation (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/LiveTextTranslator/Deep_Learning.pdf) 
 - **Google Survey & Results:** [Link](https://docs.google.com/forms/d/15E-CbHtdQRPs7BiZ-v9oNSgnP_QKuv6a1FX3L-Kx6GI/edit#responses)
-- **Github Repository:**[Link](https://github.com/Tams03/DL-Translator-Project.git)
+- **Github Repository:** [Link](https://github.com/Tams03/DL-Translator-Project.git)
 
 ---
 
