@@ -1,8 +1,10 @@
+# streamlit_app.py
 import streamlit as st
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, pipeline
+from transformers import pipeline
 
-# --- Page Setup ---
-st.set_page_config(page_title="Live Text Translator 🌐", layout="wide")
+st.set_page_config(page_title="Live Text Translator 🌎", layout="wide")
+
+st.title("🌎 Live Text Translator")
 
 # --- Custom CSS for styling ---
 st.markdown("""
@@ -11,7 +13,7 @@ st.markdown("""
             background-color: #a8d5ba;  /* green background */
             color: black;  /* black text */
         }
-        .stTextInput>div>div>input {
+        .stTextInput>div>div>input, .stTextArea>div>div>textarea {
             background-color: white;  /* white input boxes */
             color: black;
         }
@@ -28,81 +30,46 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# --- Sidebar: only English ↔ Hebrew ---
-st.sidebar.header("🌎 Choose Languages")
-language_map = {"English": "en", "Hebrew": "he"}
-lang_a = st.sidebar.selectbox("Chat Area A Language", list(language_map.keys()), index=0)
-lang_b = st.sidebar.selectbox("Chat Area B Language", list(language_map.keys()), index=1)
+# --- Language Selection ---
+languages = ["English", "Hebrew"]
 
-# --- Load translation model ---
+col1, col2 = st.columns(2)
+with col1:
+    lang_a = st.selectbox("Chat Area A Language", languages, index=0)
+with col2:
+    lang_b = st.selectbox("Chat Area B Language", languages, index=1)
+
+# --- Load translation pipelines ---
 @st.cache_resource
-def load_translator():
-    st.info("Loading translation model for English ↔ Hebrew...")
-    tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-he")
-    model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-he")
-    translator = pipeline("translation", model=model, tokenizer=tokenizer)
-    st.success("Model loaded successfully!")
-    return translator
+def load_pipelines():
+    translator_en_he = pipeline("translation", model="Helsinki-NLP/opus-mt-en-he")
+    translator_he_en = pipeline("translation", model="Helsinki-NLP/opus-mt-he-en")
+    return translator_en_he, translator_he_en
 
-translator = load_translator()
+translator_en_he, translator_he_en = load_pipelines()
 
 # --- Translation function ---
 def translate_text(text, source_lang, target_lang):
-    if source_lang == "en" and target_lang == "he":
-        result = translator(text, src="en", tgt="he")
-        return result[0]['translation_text']
-    elif source_lang == "he" and target_lang == "en":
-        result = translator(text, src="he", tgt="en")
-        return result[0]['translation_text']
+    if source_lang == "English" and target_lang == "Hebrew":
+        result = translator_en_he(text)
+    elif source_lang == "Hebrew" and target_lang == "English":
+        result = translator_he_en(text)
     else:
-        return "[Unsupported language]"
+        # Same language, no translation needed
+        return text
+    return result[0]['translation_text']
 
-# --- Chat state ---
-if "chat_a" not in st.session_state:
-    st.session_state.chat_a = []
-if "chat_b" not in st.session_state:
-    st.session_state.chat_b = []
+# --- Chat input ---
+st.write("Type your message below:")
 
-if "input_a_val" not in st.session_state:
-    st.session_state.input_a_val = ""
-if "input_b_val" not in st.session_state:
-    st.session_state.input_b_val = ""
+msg_a = st.text_area(f"Chat Area A ({lang_a})", height=100, key="msg_a")
 
-# --- Layout: dual chat columns ---
-col1, col2 = st.columns(2)
+if st.button("Translate →"):
+    if msg_a.strip() == "":
+        st.warning("Please enter some text to translate.")
+    else:
+        translated = translate_text(msg_a, lang_a, lang_b)
+        st.text_area(f"Chat Area B ({lang_b})", value=translated, height=100, key="msg_b")
 
-# --- Chat Area A ---
-with col1:
-    st.subheader(f"Chat Area A ({lang_a})")
-    for msg in st.session_state.chat_a:
-        st.markdown(f"<div class='chat-box'>{msg}</div>", unsafe_allow_html=True)
-
-    msg_a = st.text_input(
-        "Type here (A → B)",
-        key="input_a_widget",
-        value=st.session_state.input_a_val,
-    )
-
-    if st.button("Send from A", key="send_a") and msg_a.strip():
-        translated = translate_text(msg_a, language_map[lang_a], language_map[lang_b])
-        st.session_state.chat_a.append(f"**You ({lang_a}):** {msg_a}")
-        st.session_state.chat_b.append(f"**Translated to {lang_b}:** {translated}")
-        st.session_state.input_a_val = ""  # reset safely
-
-# --- Chat Area B ---
-with col2:
-    st.subheader(f"Chat Area B ({lang_b})")
-    for msg in st.session_state.chat_b:
-        st.markdown(f"<div class='chat-box'>{msg}</div>", unsafe_allow_html=True)
-
-    msg_b = st.text_input(
-        "Type here (B → A)",
-        key="input_b_widget",
-        value=st.session_state.input_b_val,
-    )
-
-    if st.button("Send from B", key="send_b") and msg_b.strip():
-        translated = translate_text(msg_b, language_map[lang_b], language_map[lang_a])
-        st.session_state.chat_b.append(f"**You ({lang_b}):** {msg_b}")
-        st.session_state.chat_a.append(f"**Translated to {lang_a}:** {translated}")
-        st.session_state.input_b_val = ""  # reset safely
+st.write("---")
+st.caption("Powered by Hugging Face Transformers (Helsinki-NLP)")
