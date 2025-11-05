@@ -52,11 +52,17 @@ def translate_text(text, source_lang, target_lang):
         return "[Unsupported language]"
     tokenizer.src_lang = LANGUAGE_CODES[source_lang]
     encoded = tokenizer(text, return_tensors="pt")
-    generated_tokens = model.generate(
-        **encoded,
-        forced_bos_token_id=tokenizer.lang_code_to_id[LANGUAGE_CODES[target_lang]],
-        max_length=200
-    )
+# Get the BOS token ID in a safe way
+    if hasattr(tokenizer, "lang_code_to_id"):
+        bos_id = tokenizer.lang_code_to_id[LANGUAGE_CODES[target_lang]]
+    else:
+        bos_id = tokenizer.convert_tokens_to_ids(f"<{LANGUAGE_CODES[target_lang]}>")
+        generated_tokens = model.generate(
+            **encoded,
+            forced_bos_token_id=bos_id,
+            max_length=200
+        )
+
     return tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
 
 # --- Chat state ---
