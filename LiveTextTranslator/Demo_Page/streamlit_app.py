@@ -64,12 +64,18 @@ def translate_text(text, source_lang, target_lang):
     )
     return tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
 
-
 # --- Chat state ---
 if "chat_a" not in st.session_state:
     st.session_state.chat_a = []
 if "chat_b" not in st.session_state:
     st.session_state.chat_b = []
+
+# --- Callbacks to clear input fields ---
+def clear_input_a():
+    st.session_state.input_a = ""
+
+def clear_input_b():
+    st.session_state.input_b = ""
 
 # --- Layout: dual chat columns ---
 col1, col2 = st.columns(2)
@@ -85,7 +91,7 @@ with col1:
         translated = translate_text(msg_a, language_map[lang_a], language_map[lang_b])
         st.session_state.chat_a.append(f"**You ({lang_a}):** {msg_a}")
         st.session_state.chat_b.append(f"**Translated to {lang_b}:** {translated}")
-        st.session_state.input_a = ""  # reset input
+        clear_input_a()  # safely reset input
 
 # --- Chat Area B ---
 with col2:
@@ -98,4 +104,4 @@ with col2:
         translated = translate_text(msg_b, language_map[lang_b], language_map[lang_a])
         st.session_state.chat_b.append(f"**You ({lang_b}):** {msg_b}")
         st.session_state.chat_a.append(f"**Translated to {lang_a}:** {translated}")
-        st.session_state.input_b = ""  # reset input
+        clear_input_b()  # safely reset input
