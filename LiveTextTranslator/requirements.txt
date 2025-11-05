@@ -1,0 +1,7 @@
+streamlit
+fastapi
+uvicorn
+websockets
+transformers
+torch
+pydantic
