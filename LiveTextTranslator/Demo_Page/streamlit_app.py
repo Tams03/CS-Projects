@@ -51,12 +51,7 @@ def translate_text(text, source_lang, target_lang):
     tokenizer.src_lang = LANGUAGE_CODES[source_lang]
     encoded = tokenizer(text, return_tensors="pt")
     
-    # Safe way to get the forced_bos_token_id
-    if hasattr(tokenizer, "lang_code_to_id"):
-        bos_id = tokenizer.lang_code_to_id[LANGUAGE_CODES[target_lang]]
-    else:
-        bos_id = tokenizer.convert_tokens_to_ids(f"<{LANGUAGE_CODES[target_lang]}>")
-
+    bos_id = tokenizer.lang_code_to_id.get(LANGUAGE_CODES[target_lang], None)
     generated_tokens = model.generate(
         **encoded,
         forced_bos_token_id=bos_id,
@@ -69,13 +64,10 @@ if "chat_a" not in st.session_state:
     st.session_state.chat_a = []
 if "chat_b" not in st.session_state:
     st.session_state.chat_b = []
-
-# --- Callbacks to clear input fields ---
-def clear_input_a():
-    st.session_state.input_a = ""
-
-def clear_input_b():
-    st.session_state.input_b = ""
+if "input_a_val" not in st.session_state:
+    st.session_state.input_a_val = ""
+if "input_b_val" not in st.session_state:
+    st.session_state.input_b_val = ""
 
 # --- Layout: dual chat columns ---
 col1, col2 = st.columns(2)
@@ -86,12 +78,12 @@ with col1:
     for msg in st.session_state.chat_a:
         st.markdown(msg)
 
-    msg_a = st.text_input("Type here (A → B)", key="input_a")
+    msg_a = st.text_input("Type here (A → B)", key="input_a_val", value=st.session_state.input_a_val)
     if st.button("Send from A", key="send_a") and msg_a.strip():
         translated = translate_text(msg_a, language_map[lang_a], language_map[lang_b])
         st.session_state.chat_a.append(f"**You ({lang_a}):** {msg_a}")
         st.session_state.chat_b.append(f"**Translated to {lang_b}:** {translated}")
-        clear_input_a()  # safely reset input
+        st.session_state.input_a_val = ""  # reset input by changing the stored value
 
 # --- Chat Area B ---
 with col2:
@@ -99,9 +91,9 @@ with col2:
     for msg in st.session_state.chat_b:
         st.markdown(msg)
 
-    msg_b = st.text_input("Type here (B → A)", key="input_b")
+    msg_b = st.text_input("Type here (B → A)", key="input_b_val", value=st.session_state.input_b_val)
     if st.button("Send from B", key="send_b") and msg_b.strip():
         translated = translate_text(msg_b, language_map[lang_b], language_map[lang_a])
         st.session_state.chat_b.append(f"**You ({lang_b}):** {msg_b}")
         st.session_state.chat_a.append(f"**Translated to {lang_a}:** {translated}")
-        clear_input_b()  # safely reset input
+        st.session_state.input_b_val = ""  # reset input by changing the stored value
