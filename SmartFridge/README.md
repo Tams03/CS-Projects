@@ -8,7 +8,7 @@
 ---
 
 ## Overview
-SmartFridge is an IoT-based food management system designed to help users reduce food waste and optimize kitchen efficiency. Using a Raspberry Pi and barcode scanning, the system tracks inventory and expiration dates automatically. Notifications alert users of soon-to-expire items, while Gemini AI provides smart suggestions for meals based on available ingredients. The mobile app interface allows remote access, real-time updates, and historical tracking of food usage. This project demonstrates the practical integration of hardware, software, and AI for a modern smart kitchen solution.
+SmartFridge is an IoT-based food management system designed to help users reduce food waste and optimize kitchen efficiency. This project was completed as part of a group and demonstrates how to integrate hardware and software. Using a Raspberry Pi and barcode scanning, the system tracks inventory and expiration dates automatically. Notifications alert users of soon-to-expire items, while Gemini AI provides smart suggestions for meals based on available ingredients. The mobile app interface allows remote access, real-time updates, and historical tracking of food usage. This project demonstrates the practical integration of hardware, software, and AI for a modern smart kitchen solution.
 
 ---
 
@@ -33,40 +33,40 @@ This project was completed as part of a group. My specific contributions include
 ---
 
 ## System Architecture / How it Works
-- Raspberry Pi captures images of food items and scans barcodes to identify and log them.  
-- Data is stored and managed in Firebase, allowing real-time synchronization with the mobile app.  
-- The mobile app provides users with an up-to-date inventory and sends notifications for expiring items.  
-- Historical data is logged to track changes in inventory and user behavior.
+- Raspberry Pi captures images of food items and scans barcodes to identify and log them  
+- Data is stored and managed in Firebase, allowing real-time synchronization with the mobile app  
+- The mobile app provides users with an up-to-date inventory and sends notifications for expiring items  
+- Historical data is logged to track changes in inventory and user behavior
 
 ---
 
 ## Features
 - Tracks inventory automatically using barcode scanning
-- Sends notifications for soon-to-expire food items  
+- Sends notifications for soon-to-expire food items
 - Provides smart suggestions using Gemini AI (e.g., “What can I make for lunch?”)  
-- Updates the mobile app in real-time  
+- Updates the mobile app in real-time
 - Maintains historical logs of added and removed items
 
 ---
 
 ## Prototype
-- The prototype demonstrates a fully functional SmartFridge setup, including hardware scanning and mobile app interface.  
-- Users can test scanning different items, observe the real-time updates, and verify notification delivery.
+- The prototype demonstrates a fully functional SmartFridge setup, including hardware scanning and mobile app interface  
+- Users can test scanning different items, observe the real-time updates, and verify notification delivery
 
 ---
 
 ## Demo / Instructions
-- Access the prototype demo (link provided).  
-- Follow setup instructions in the README to replicate the system using the provided scripts and mobile app files.  
-- Test the barcode scanning and ensure notifications are delivered correctly on the mobile app.
+- Access the prototype demo (link provided) 
+- Follow the setup instructions in the README to replicate the system using the provided scripts and mobile app files  
+- Test the barcode scanning and ensure notifications are delivered correctly on the mobile app
 [Demo Video](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/smartfridge-demo.mp4)
 
 ---
 
 ## Business Impact
-- Helps households reduce food waste and save money.  
-- Demonstrates a scalable IoT solution for smart kitchens.  
-- Provides a foundation for future commercial smart kitchen applications.
+- Helps households reduce food waste and save money  
+- Demonstrates a scalable IoT solution for smart kitchens 
+- Provides a foundation for future commercial smart kitchen applications
 
 ---
 
