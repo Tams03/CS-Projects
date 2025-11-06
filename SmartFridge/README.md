@@ -8,7 +8,7 @@
 ---
 
 ## Overview
-SmartFridge is an IoT-based food management system that tracks inventory and expiration dates using a Raspberry Pi and a mobile app interface. The system provides a simple way for users to manage food efficiently and reduce waste.
+SmartFridge is an IoT-based food management system designed to help users reduce food waste and optimize kitchen efficiency. Using a Raspberry Pi and barcode scanning, the system tracks inventory and expiration dates automatically. Notifications alert users of soon-to-expire items, while Gemini AI provides smart suggestions for meals based on available ingredients. The mobile app interface allows remote access, real-time updates, and historical tracking of food usage. This project demonstrates the practical integration of hardware, software, and AI for a modern smart kitchen solution.
 
 ---
 
