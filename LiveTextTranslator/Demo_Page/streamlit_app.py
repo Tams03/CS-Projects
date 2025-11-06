@@ -1,7 +1,10 @@
 # streamlit_app.py
 import streamlit as st
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 
+# --------------------------
+# Page Setup
+# --------------------------
 st.set_page_config(page_title="🌐 Live Text Translator Demo", layout="wide")
 
 st.markdown(
@@ -11,7 +14,7 @@ st.markdown(
 )
 
 # --------------------------
-# Sidebar settings
+# Sidebar Settings
 # --------------------------
 st.sidebar.header("Settings")
 languages = ["English", "Spanish", "French", "Hebrew"]
@@ -23,16 +26,13 @@ if source_lang == target_lang:
     st.sidebar.warning("Source and target languages are the same!")
 
 # --------------------------
-# Translator
+# Translator Function
 # --------------------------
-translator = Translator()
-
 def translate_text(text, src, tgt):
     if src == tgt:
         return text
     try:
-        translated = translator.translate(text, src=src.lower(), dest=tgt.lower())
-        return translated.text
+        return GoogleTranslator(source=src.lower(), target=tgt.lower()).translate(text)
     except Exception:
         return "[Translation failed]"
 
@@ -58,6 +58,7 @@ def send_message():
 chat_box = st.container()
 with chat_box:
     for m in st.session_state.chat:
+        # Right-to-left for Hebrew
         if target_lang == "Hebrew" and ("Partner" in m or "You" in m):
             st.markdown(f"<div style='direction:rtl; color:green;'>{m}</div>", unsafe_allow_html=True)
         else:
