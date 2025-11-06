@@ -1,122 +1,101 @@
-# 📺 YouTube Companion – Channel Insights & Recommendations
+# ▶️ YouTube-Companion – Channel Insights & Recommendation Tool
 
-**Course:** Advanced Development  
-**Grade:** 98/100  
-**Type:** Python Application & Data Analysis Tool  
-**Technologies:** Python, YouTube API, Streamlit  
+**Course:** Python Data Analysis  
+**Grade:** 96/100  
+**Type:** Python Data Analysis & Web Application  
+**Technologies:** Python, Pandas, Matplotlib, YouTube API, Streamlit
 
 ---
 
 ## Overview
-
-YouTube Companion is a Python tool that retrieves, compares, and analyzes YouTube channel data.  
-It helps users quickly gain insights into channel performance, compare multiple channels, and receive personalized channel recommendations — all **without needing to know how to code**.
+YouTube-Companion is a tool that analyzes YouTube channels and provides recommendations for similar content based on user input. It helps users discover relevant channels and gain insights into channel performance.
 
 ---
 
 ## Problem & Motivation
-
-- Millions of YouTube channels make it difficult to track performance or find relevant content manually.  
-- Content creators, marketers, and enthusiasts need data-driven insights to make informed decisions.  
-- Manual tracking is time-consuming and inefficient.  
-- This project provides fast, automated analysis and personalized recommendations for YouTube channels.
+Finding relevant content on YouTube can be time-consuming, and discovering new channels manually is inefficient. YouTube-Companion provides analytics and suggestions to help users explore content efficiently.
 
 ---
 
-## 🎯 Goals
 
-- Retrieve detailed channel information including subscribers, views, video count, engagement rate, content frequency (average days between uploads), most popular video, and overall category  
-- Compare multiple channels based on key metrics to identify top performers  
-- Suggest new channels based on input channels or topics  
-
----
-
-## 👩‍💻 My Role
-
-- Full YouTube API integration for real-time data retrieval  
-- Data processing entirely in Python  
-- Designed outputs for comparison and recommendations  
-- Developed a professional interactive page for non-coders  
+## Goals
+- Build a Python-based tool for analyzing YouTube channels and generating recommendations.  
+- Provide interactive visualizations of channel data.  
+- Offer a user-friendly demo to explore channels and analytics.    
 
 ---
 
-## 🧩 System Architecture
+## Role
+- Developed data analysis scripts and integrated YouTube API.  
+- Created Streamlit-based interactive demo page for user testing.  
+- Designed analytics outputs for subscriber count, engagement, and video statistics.  
 
-- **backend.py** – Python scripts for data retrieval, processing, and analysis  
-- **app.py** – Interactive app interface for users  
+---
+
+## System Architecture / How it Works
+- Users input a YouTube channel name (or names) and choose the desired action: Get Channel Data, Compare Channels, or Suggest Me a Channel.
+- Scripts fetch channel data using the YouTube API.  
+- Analysis generates recommendations for similar channels and visualizes key metrics.  
+- Results are displayed for exploration.
 - Modular design allows easy extension for additional features  
 
 ---
 
-## 🚀 Core Features
-
-- Channel data retrieval (text-based outputs with clickable YouTube links)  
-- Channel comparison by Subscribers, Views, and Engagement Rate  
-- Personalized channel recommendations  
-- Real-time data using YouTube API  
-- User-friendly interactive page for anyone to access and explore insights  
+## Features
+- Provides channel analytics and insights
+- Compares channels based on key metrics
+- Recommends similar channels
+- Offers interactive demo page for exploring data
+- Displays metrics for engagement, subscribers, and video statistics
 
 ---
 
-## 🖥️ Interactive Page Instructions (For Users – No Coding Required)
+## Prototype
+- The prototype allows users to input a channel name and see analytics and suggestions. 
+- Users can explore multiple channels and compare results interactively.
 
-### How to Access
+---
 
-The app is hosted online and can be accessed through your browser:  
-[Link](https://appapppy-youtube-companion.streamlit.app/)
-
-### How to Use
-
-1. Choose one of the three actions:
-
-   - **Get Channel Data** – Enter a channel handle or URL to see detailed statistics and metrics  
-   - **Compare Channels** – Enter two or more channel handles or URLs to compare subscribers, views, and engagement  
-   - **Suggest Me a Channel** – Enter channels you like or a topic to get a recommended similar channel  
-
-2. Input your channel names, handles, or topic in the provided text box  
-
-3. Click the corresponding action button  
-
-4. View results instantly (text-based outputs):
-
-   - Metrics such as subscribers, views, videos, engagement rate, content frequency, and most popular video  
+## Demo / Instructions
+- Access the interactive demo page via the provided [link](https://appapppy-youtube-companion.streamlit.app/).  
+- **Instructions to use the demo:**
+  1. Open the demo page in your web browser.
+  2. Choose one of the three actions: Get Channel Data, Compare Channels, or Suggest a Channel
+  3. Input your channel names, handles, or topics in the provided text box  
+  4. Click the corresponding action button    
+  5. View results instantly (text-based outputs):
+   - Metrics such as subscribers, views, videos, engagement rate, content frequency, and the most popular video
+   - channel comparison of subscribers, views, and engagement  
    - Recommended channels displayed with clickable YouTube links  
 
-Enjoy the insights and explore recommended channels **without needing to know Python**  
+---
+
+## Business Impact
+- Helps users discover relevant content efficiently.  
+- Supports content creators and marketers in identifying competitors or collaborators.  
+- Provides actionable insights based on data-driven recommendations.
 
 ---
 
-## 🧪 Prototype
-
-- Colab Notebook: YouTube Companion Notebook  
-- Tested example outputs of channel data and recommendations  
-
----
-
-## 💼 Business & Impact
-
-- Enables automatic comparisons and personalized recommendations, saving time and effort  
-- Demonstrates Python programming, API integration, and data analysis skills  
+## Tools & Technologies
+- Python, Pandas, Matplotlib  
+- YouTube API  
+- Streamlit for interactive demo
 
 ---
 
-## 🧰 Tools & Technologies
-
-Python, YouTube API, Streamlit  
-
----
-
-## 📂 Project Files
+## Project Files
 
 * Colab Notebook: [Link](https://github.com/Tams03/CS-Projects/blob/main/YouTube-Companion/YouTube-Companion-code)  
-* Demo page: [Link](https://appapppy-youtube-companion.streamlit.app/)  
-* Example outputs of channel data and recommendations  
 
 ---
 
-## 📈 Results & Reflection
+## Results
+- Successfully generates recommendations and analytics for input channels  
+- Interactive demo enables hands-on exploration of YouTube data  
+- Provides actionable insights for users and content creators
 
-- Successfully created a YouTube channel analysis tool that retrieves, compares, and recommends channels  
-- Outputs are **text-based** with clickable links for easy exploration  
-- Enables automatic comparisons and personalized recommendations, saving time and effort  
-- Demonstrates Python programming, API integration, and data analysis skills  
+## Reflections
+- Learned to integrate APIs with Python data analysis tools.  
+- Gained experience in interactive data visualization and user experience design.  
+- Understood the importance of clear presentation for analytics-driven tools.
