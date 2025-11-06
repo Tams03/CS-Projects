@@ -12,7 +12,6 @@ LiveTextTranslator (named **LinguaLink**) is a real-time multilingual translator
 It allows users speaking different languages to communicate instantly and seamlessly, leveraging the **NLLB-200 transformer model** for high-accuracy translation.  
 An **interactive demo page** is available to showcase the tool to non-coders and allow them to try live translations.  
 The project also lays the groundwork for future speech-to-speech, speech-to-text, and text-to-speech integration.
-.
 
 ---
 
@@ -22,27 +21,27 @@ Language barriers hinder global collaboration, communication, and learning. Many
 ---
 
 ## Goals
-- Build a fast, real-time text translation application.  
-- Support multiple languages for global communication.  
-- Provide an interactive demo for users to test translations.  
-- Facilitate easy integration into messaging platforms or customer support systems.  
+- Build a fast, real-time text translation application 
+- Support multiple languages for global communication  
+- Provide an interactive demo for users to test translations  
+- Facilitate easy integration into messaging platforms or customer support systems 
 
 ---
 
 ## Role
 This project was completed as part of a group. My specific contributions included:
-- Developed the backend using FastAPI and WebSocket for real-time communication.  
-- Integrated transformer-based multilingual model (NLLB-200) for translation.  
-- Created the interactive demo page using Streamlit.  
-- Tested multiple languages and large input texts to ensure performance and accuracy.
+- Developed the backend using FastAPI and WebSocket for real-time communication
+- Integrated transformer-based multilingual model (NLLB-200) for translation
+- Created the interactive demo page using Streamlit
+- Tested multiple languages and large input texts to ensure performance and accuracy
   
 ---
 
 ## System Architecture / How it Works
-- Users input text via a web interface connected to a FastAPI backend using WebSocket.  
-- The backend sends text to the transformer model for translation.  
-- Translated text is returned instantly to the user interface.  
-- Multiple users can use the system simultaneously with low latency.
+- Users input text via a web interface connected to a FastAPI backend using WebSocket 
+- The backend sends text to the transformer model for translation 
+- Translated text is returned instantly to the user interface
+- Multiple users can use the system simultaneously with low latency
 
 ---
 
@@ -56,29 +55,29 @@ This project was completed as part of a group. My specific contributions include
 
 
 ## Prototype
-- The prototype demonstrates the real-time translation workflow.  
-- Users can input text, select source and target languages, and receive translations instantly.  
-- The system handles multiple inputs and simulates live conversation flows.
+- The prototype demonstrates the real-time translation workflow 
+- Users can input text, select source and target languages, and receive translations instantly
+- The system handles multiple inputs and simulates live conversation flows
 
 ---
 
 ## Demo / Instructions
 - Access the interactive demo page via the provided [link](https://appapppy-livetexttranslator.streamlit.app/).  
 - **Instructions to use the demo:**
-  1. Open the demo page in your web browser.  
-  2. Select the source language of your text.  
-  3. Select the target language for translation.  
-  4. Type or paste your text into the input box.  
-  5. Press “Enter” or submit to receive the translation.  
-  6. Test multiple languages and longer text inputs to observe real-time translation.  
-  7. Input consecutive messages to simulate a conversation flow; the system handles multiple users and continuous text. 
+  **1.** Open the demo page in your web browser
+  **2.** Select the source language of your text 
+  **3.** Select the target language for translation
+  **4.** Type or paste your text into the input box
+  **5.** Press “Enter” or submit to receive the translation
+  **6.** Test multiple languages and longer text inputs to observe real-time translation  
+  **7.** Input consecutive messages to simulate a conversation flow; the system handles multiple users and continuous text 
 
 ---
 
 ## Business Impact
-- Facilitates global communication and collaboration.  
-- Can be integrated into messaging platforms, educational tools, or online customer support.  
-- Demonstrates practical application of transformer-based NLP models. 
+- Facilitates global communication and collaboration 
+- Can be integrated into messaging platforms, educational tools, or online customer support
+- Demonstrates practical application of transformer-based NLP models
 
 ---
 
@@ -87,7 +86,7 @@ This project was completed as part of a group. My specific contributions include
 - Streamlit for interactive demo  
 - Hugging Face Transformers, NLLB-200  
 - Firebase for storage and logging
-> **Note:** NLLB-200 (No Language Left Behind) is a transformer-based model developed by Meta/Facebook, capable of translating between 200 languages with high accuracy, even for low-resource languages.   
+> **Note:** NLLB-200 (No Language Left Behind) is a transformer-based model developed by Meta/Facebook, capable of translating between 200 languages with high accuracy, even for low-resource languages   
 
 ---
 
@@ -107,7 +106,7 @@ This project was completed as part of a group. My specific contributions include
 ---
 
 ## Reflections
-- Learned to implement real-time WebSocket communication with deep learning models.  
-- Gained experience integrating NLP models into interactive applications.  
-- Understood challenges of handling multi-language inputs and performance optimization.
+- Learned to implement real-time WebSocket communication with deep learning models 
+- Gained experience integrating NLP models into interactive applications  
+- Understood challenges of handling multi-language inputs and performance optimization
 - Learned to work effectively in a team
