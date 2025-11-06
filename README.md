@@ -47,14 +47,14 @@ Each project includes **full documentation, demos, project files, and reflection
 ---
 
 ## 📈 Highlights
-- ✅ Built an **IoT food management system** with real-time inventory tracking and AI-powered suggestions.  
-- ✅ Developed a **real-time multilingual text translator** supporting multiple languages and group chat scenarios.  
-- ✅ Created a **YouTube channel analysis and recommendation tool** for actionable content insights.  
-- ✅ Gained hands-on experience in **full-stack development, API integration, data analysis, system architecture, and professional documentation**.  
+- ✅ Built an **IoT food management system** with real-time inventory tracking and AI-powered suggestions
+- ✅ Developed a **real-time multilingual text translator** supporting multiple languages and group chat scenarios 
+- ✅ Created a **YouTube channel analysis and recommendation tool** for actionable content insights
+- ✅ Gained hands-on experience in **full-stack development, API integration, data analysis, system architecture, and professional documentation**  
 
 ---
 
 ## 📌 How to Explore This Repository
-1. Click any project link above to navigate to its folder.  
-2. Open the project README to view: **Overview, Problem & Motivation, Goals, Role, System Architecture, Features, Prototype, Business & Impact, Tools, Files, Results, and Reflections**.  
-3. Follow instructions in demos, scripts, or notebooks to run the projects locally or in Colab.  
+1. Click any project link above to navigate to its folder  
+2. Open the project README to view: **Overview, Problem & Motivation, Goals, Role, System Architecture, Features, Prototype, Business & Impact, Tools, Files, Results, and Reflections** 
+3. Follow instructions in demos, scripts, or notebooks to run the projects locally or in Colab  
