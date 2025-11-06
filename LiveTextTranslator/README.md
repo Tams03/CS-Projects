@@ -1,117 +1,109 @@
-# 🌐 Live Text Translator – Real-Time Multilingual Communication
+# 🌐 LiveTextTranslator – Real-Time Multilingual Communication
 
 **Course:** Deep Learning and Its Applications  
 **Grade:** 99/100  
 **Type:** Deep Learning & Web Application  
-**Technologies:** Python, NLLB-200 (transformer-based translation model), FastAPI, WebSocket, GitHub Codespaces, Firebase, Streamlit  
+**Technologies:** Python, FastAPI, WebSocket, Streamlit, Hugging Face Transformers, NLLB-200, Firebase
 
 ---
 
 ## Overview
-
-Live Text Translator (**LinguaLink**) is a real-time multilingual translator for text and planned speech conversations.  
-It allows users speaking different languages to communicate instantly and seamlessly using the **NLLB-200 transformer model** for high-accuracy translation.  
-
-> **Note:** NLLB-200 (No Language Left Behind) is a transformer-based model developed by Meta/Facebook, capable of translating between 200 languages with high accuracy, even for low-resource languages.  
-
-The project includes a **core real-time translation system** and a lightweight **interactive demo page** for non-coders to explore translations.  
+LiveTextTranslator is a real-time multilingual communication tool that translates user input text between languages using a transformer-based deep learning model. It enables fast and accurate translations for seamless communication across language barriers.
 
 ---
 
 ## Problem & Motivation
-
-- Around 7,159 languages exist worldwide, but most people speak only 1–2.  
-- Language barriers affect communication in business, healthcare, education, and personal interactions.  
-- Existing translation tools are often too slow or impractical for real-time conversations.  
-- LinguaLink addresses this by providing instant, bidirectional translations between multiple languages.
+Language barriers hinder global collaboration, communication, and learning. Many existing translation tools are slow or limited in language support. LiveTextTranslator addresses this problem by providing instant translation in multiple languages with high accuracy.
 
 ---
 
-## 🎯 Goals
-
-- Enable real-time translation between multiple languages  
-- Support cross-language communication in group chats  
-- Achieve low-latency, high-accuracy translation using NLLB-200  
-- Prepare for future speech-to-speech, speech-to-text, and text-to-speech integration  
-
----
-
-## 👩‍💻 My Role
-
-- Implemented server-side translation using NLLB-200 in FastAPI  
-- Built real-time WebSocket chat system for multilingual messaging  
-- Conducted stress tests with multiple concurrent clients  
-- Prepared documentation and README  
-- Assisted with project planning and technical decisions  
-- Developed a professional **interactive demo page** for non-coders  
+## Goals
+- Build a fast, real-time text translation application.  
+- Support multiple languages for global communication.  
+- Provide an interactive demo for users to test translations.  
+- Facilitate easy integration into messaging platforms or customer support systems.  
 
 ---
 
-## 🧩 System Architecture
+## Role
+This project was completed as part of a group. My specific contributions included:
+- Developed the backend using FastAPI and WebSocket for real-time communication.  
+- Integrated transformer-based multilingual model (NLLB-200) for translation.  
+- Created the interactive demo page using Streamlit.  
+- Tested multiple languages and large input texts to ensure performance and accuracy.
+  
+---
 
-- **Application Layer:** Telegram bot interface and WebSocket chat for real-time user interaction  
-- **Service Layer:** FastAPI server handles translation requests using the NLLB-200-distilled-600M model  
-- **Business Layer:** Manages pairing of users, session handling, and fallback strategies for large models  
-- **Data Layer:** Stores user preferences and group metadata in Firestore  
+## System Architecture / How it Works
+- Users input text via a web interface connected to a FastAPI backend using WebSocket.  
+- The backend sends text to the transformer model for translation.  
+- Translated text is returned instantly to the user interface.  
+- Multiple users can use the system simultaneously with low latency.
 
 ---
 
-## 🚀 Core Features
-
-- Real-time text translation in group chats and direct messages  
-- Automatic user pairing and reassignment if a participant disconnects  
-- WebSocket communication for low-latency, dynamic message delivery  
-- Future enhancements: speech-to-speech / speech-to-text / text-to-speech, additional language support  
-- Development Environment: GitHub Codespaces with Python 3.12  
-- Model: NLLB-200-distilled-600M (transformer-based, pre-trained by Meta/Facebook)  
+## Features
+- Translates text in real-time across multiple languages  
+- Provides WebSocket-based backend for instant response  
+- Offers interactive demo page for testing translations  
+- Supports multiple simultaneous users 
 
 ---
 
-## 🖥️ Interactive Demo Page
 
-A lightweight **demo page** is available online for users who want to explore translations without installing or running the full project.  
-
-- The demo allows typing messages in two languages with real-time translation between them.  
-- For stability, the demo may use a lighter-weight model or a translation API (e.g., Google Translate).  
-- The **core project still uses the full NLLB-200 model** for production-level accuracy.  
-- Access the demo here: [Live Demo Page](https://appapppy-livetexttranslator.streamlit.app/)
+## Prototype
+- The prototype demonstrates the real-time translation workflow.  
+- Users can input text, select source and target languages, and receive translations instantly.  
+- The system handles multiple inputs and simulates live conversation flows.
 
 ---
 
-## 🧪 Prototype
-
-- WebSocket chat system running on FastAPI server  
-- Telegram bot integrated for group translation  
-- NLLB-200 transformer for high-accuracy translation  
-- Tested in GitHub Codespaces using Python 3.12 environment  
-
----
-
-## 💼 Business & Impact
-
-- **Innovation:** Leverages cutting-edge NLLB-200 deep learning models for seamless multilingual communication  
-- **Social Impact:** Bridges language gaps in real-time, helping businesses, healthcare, education, and global collaboration  
-- **Future Potential:** Expand to 200+ languages, integrate speech recognition and synthesis, deploy as a public service  
+## Demo / Instructions
+- Access the interactive demo page via the provided [link](https://appapppy-livetexttranslator.streamlit.app/).  
+- **Instructions to use the demo:**
+  1. Open the demo page in your web browser.  
+  2. Select the source language of your text.  
+  3. Select the target language for translation.  
+  4. Type or paste your text into the input box.  
+  5. Press “Enter” or submit to receive the translation.  
+  6. Test multiple languages and longer text inputs to observe real-time translation.  
+  7. Input consecutive messages to simulate a conversation flow; the system handles multiple users and continuous text. 
 
 ---
 
-## 🧰 Tools & Technologies
-
-Python, FastAPI, Streamlit, WebSocket, Transformers (NLLB-200), PyTorch  
+## Business Impact
+- Facilitates global communication and collaboration.  
+- Can be integrated into messaging platforms, educational tools, or online customer support.  
+- Demonstrates practical application of transformer-based NLP models. 
 
 ---
 
-## 📂 Project Files
+## Tools & Technologies
+- Python, FastAPI, WebSocket  
+- Streamlit for interactive demo  
+- Hugging Face Transformers, NLLB-200  
+- Firebase for storage and logging
+> **Note:** NLLB-200 (No Language Left Behind) is a transformer-based model developed by Meta/Facebook, capable of translating between 200 languages with high accuracy, even for low-resource languages.   
 
-- **Presentation (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/LiveTextTranslator/Deep_Learning.pdf)  
+---
+
+## Project Files
+
+- **Presentation:** [Link](https://github.com/Tams03/CS-Projects/blob/main/LiveTextTranslator/Deep_Learning.pdf)  
 - **Google Survey & Results:** [Link](https://docs.google.com/forms/d/15E-CbHtdQRPs7BiZ-v9oNSgnP_QKuv6a1FX3L-Kx6GI/edit#responses)  
 - **Github Repository:** [Link](https://github.com/Tams03/DL-Translator-Project.git)  
 
 ---
 
-## 📈 Results & Reflection
+## Results
+- Provided accurate and fast translations in real-time  
+- Supported multiple languages and users simultaneously  
+- Demonstrated feasibility of deploying transformer models for live translation
 
-- Achieved a functional MVP for real-time multilingual text translation  
-- System successfully handled multiple concurrent users (10 clients across 6 languages) without latency issues  
-- Gained hands-on experience with deep learning, real-time communication, and multilingual application design  
-- Demonstrates innovation, scalability, and practical application, making it portfolio-ready
+---
+
+## Reflections
+- Learned to implement real-time WebSocket communication with deep learning models.  
+- Gained experience integrating NLP models into interactive applications.  
+- Understood challenges of handling multi-language inputs and performance optimization.
+- Learned to work effectively in a team
