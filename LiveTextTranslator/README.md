@@ -9,20 +9,19 @@
 
 ## Overview
 
-Live Text Translator (named **LinguaLink**) is a real-time multilingual translator for text and planned speech conversations.  
-It allows users speaking different languages to communicate instantly and seamlessly leveraging the **NLLB-200 transformer model** for high-accuracy translation.  
+Live Text Translator (**LinguaLink**) is a real-time multilingual translator for text and planned speech conversations.  
+It allows users speaking different languages to communicate instantly and seamlessly using the **NLLB-200 transformer model** for high-accuracy translation.  
 
 > **Note:** NLLB-200 (No Language Left Behind) is a transformer-based model developed by Meta/Facebook, capable of translating between 200 languages with high accuracy, even for low-resource languages.  
 
-An **interactive demo page** is available to showcase the tool to non-coders and allow them to try live translations.  
-The project also lays the groundwork for future speech-to-speech, speech-to-text, and text-to-speech integration.
+The project includes a **core real-time translation system** and a lightweight **interactive demo page** for non-coders to explore translations.  
 
 ---
 
 ## Problem & Motivation
 
 - Around 7,159 languages exist worldwide, but most people speak only 1–2.  
-- Language barriers affect communication in business, healthcare, education, and personal interactions, making communication difficult.  
+- Language barriers affect communication in business, healthcare, education, and personal interactions.  
 - Existing translation tools are often too slow or impractical for real-time conversations.  
 - LinguaLink addresses this by providing instant, bidirectional translations between multiple languages.
 
@@ -40,7 +39,7 @@ The project also lays the groundwork for future speech-to-speech, speech-to-text
 ## 👩‍💻 My Role
 
 - Implemented server-side translation using NLLB-200 in FastAPI  
-- Built real-time WebSocket chat system for multilingual messaging    
+- Built real-time WebSocket chat system for multilingual messaging  
 - Conducted stress tests with multiple concurrent clients  
 - Prepared documentation and README  
 - Assisted with project planning and technical decisions  
@@ -68,19 +67,14 @@ The project also lays the groundwork for future speech-to-speech, speech-to-text
 
 ---
 
-## 🖥️ Interactive Demo Page Instructions (For Users – No Coding Required)
+## 🖥️ Interactive Demo Page
 
-### How to Access
-The demo page is hosted online and can be accessed through your browser:  
-[Live Demo Page](#) *(replace with your actual deployed URL)*  
+A lightweight **demo page** is available online for users who want to explore translations without installing or running the full project.  
 
-### How to Use
-1. Enter your preferred language and a partner's preferred language  
-2. Type a message in the text box and press “Send”  
-3. Messages are automatically translated for both users in real-time  
-4. Test different language pairs to explore translation quality  
-
-The demo allows non-coders to **experience the tool live** and understand its capabilities without needing any programming knowledge.
+- The demo allows typing messages in two languages with real-time translation between them.  
+- For stability, the demo may use a lighter-weight model or a translation API (e.g., Google Translate).  
+- The **core project still uses the full NLLB-200 model** for production-level accuracy.  
+- Access the demo here: [Live Demo Page](https://appapppy-livetexttranslator.streamlit.app/)
 
 ---
 
@@ -108,9 +102,10 @@ Python, FastAPI, Streamlit, WebSocket, Transformers (NLLB-200), PyTorch
 ---
 
 ## 📂 Project Files
-- **Presentation (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/LiveTextTranslator/Deep_Learning.pdf) 
-- **Google Survey & Results:** [Link](https://docs.google.com/forms/d/15E-CbHtdQRPs7BiZ-v9oNSgnP_QKuv6a1FX3L-Kx6GI/edit#responses)
-- **Github Repository:** [Link](https://github.com/Tams03/DL-Translator-Project.git)
+
+- **Presentation (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/LiveTextTranslator/Deep_Learning.pdf)  
+- **Google Survey & Results:** [Link](https://docs.google.com/forms/d/15E-CbHtdQRPs7BiZ-v9oNSgnP_QKuv6a1FX3L-Kx6GI/edit#responses)  
+- **Github Repository:** [Link](https://github.com/Tams03/DL-Translator-Project.git)  
 
 ---
 
