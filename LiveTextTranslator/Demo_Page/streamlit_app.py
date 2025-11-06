@@ -1,4 +1,3 @@
-# streamlit_app.py
 import streamlit as st
 from deep_translator import GoogleTranslator
 
@@ -10,9 +9,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# --------------------------
-# Languages
-# --------------------------
 languages = ["English", "Spanish", "French", "Hebrew"]
 
 col1, col2 = st.columns(2)
@@ -27,9 +23,6 @@ with col2:
     src_lang_b = st.selectbox("Language B", languages, key="src_b")
     tgt_lang_b = st.selectbox("Translate to Language A", languages, index=0, key="tgt_b")
 
-# --------------------------
-# Initialize chat states
-# --------------------------
 if "chat_a" not in st.session_state:
     st.session_state.chat_a = []
 if "chat_b" not in st.session_state:
@@ -54,14 +47,16 @@ with col1:
     if st.button("Send A → B", key="btn_a") and msg_a.strip():
         translated = translate(msg_a, src_lang_a, tgt_lang_a)
         st.session_state.chat_b.append(f"[User A]: {translated}")
-        st.session_state.input_a = ""
+        # Clear input after sending
+        st.experimental_rerun()
 
 with col2:
     msg_b = st.text_input("Type message as User B", key="input_b")
     if st.button("Send B → A", key="btn_b") and msg_b.strip():
         translated = translate(msg_b, src_lang_b, tgt_lang_b)
         st.session_state.chat_a.append(f"[User B]: {translated}")
-        st.session_state.input_b = ""
+        # Clear input after sending
+        st.experimental_rerun()
 
 # --------------------------
 # Display chats
