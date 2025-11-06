@@ -8,7 +8,11 @@
 ---
 
 ## Overview
-LiveTextTranslator is a real-time multilingual communication tool that translates user input text between languages using a transformer-based deep learning model. It enables fast and accurate translations for seamless communication across language barriers.
+LiveTextTranslator (named **LinguaLink**) is a real-time multilingual translator for text and planned speech conversations.  
+It allows users speaking different languages to communicate instantly and seamlessly, leveraging the **NLLB-200 transformer model** for high-accuracy translation.  
+An **interactive demo page** is available to showcase the tool to non-coders and allow them to try live translations.  
+The project also lays the groundwork for future speech-to-speech, speech-to-text, and text-to-speech integration.
+.
 
 ---
 
