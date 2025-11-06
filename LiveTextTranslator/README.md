@@ -112,7 +112,6 @@ Python, FastAPI, Streamlit, WebSocket, Transformers (NLLB-200), PyTorch
 ## 📈 Results & Reflection
 
 - Achieved a functional MVP for real-time multilingual text translation  
-- Preliminary translation accuracy: BLEU score >0.35 (EN ↔ HE) and latency under 1 second  
 - System successfully handled multiple concurrent users (10 clients across 6 languages) without latency issues  
 - Gained hands-on experience with deep learning, real-time communication, and multilingual application design  
 - Demonstrates innovation, scalability, and practical application, making it portfolio-ready
