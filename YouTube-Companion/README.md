@@ -8,7 +8,7 @@
 ---
 
 ## Overview
-YouTube-Companion is a tool that analyzes YouTube channels and provides recommendations for similar content based on user input. It helps users discover relevant channels and gain insights into channel performance.
+YouTube-Companion is a Python-based tool designed to help users analyze YouTube channels and discover relevant content efficiently. It fetches channel data using the YouTube API and provides analytics on subscribers, views, engagement, and content frequency. Users can compare multiple channels side-by-side and receive recommendations for similar channels based on theams or other channels. The Streamlit interactive demo allows hands-on exploration of results, helping content creators, marketers, and enthusiasts make data-driven decisions. This project demonstrates practical application of data analysis, visualization, and API integration.
 
 ---
 
