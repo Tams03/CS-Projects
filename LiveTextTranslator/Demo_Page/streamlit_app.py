@@ -42,7 +42,7 @@ st.markdown("---")
 # --- Load Model (cached) ---
 @st.cache_resource
 def load_model():
-    model_name = "facebook/nllb-200-distilled-600M"
+    model_name = "facebook/nllb-200-distilled-1.3B"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
     return tokenizer, model
