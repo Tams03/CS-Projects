@@ -39,7 +39,7 @@ Finding relevant content on YouTube can be time-consuming, and discovering new c
 - Results are displayed for exploration
 - Modular design allows easy extension for additional features  
 
----
+---	
 
 ## Features
 - Provides channel analytics and insights
@@ -57,7 +57,7 @@ Finding relevant content on YouTube can be time-consuming, and discovering new c
 ---
 
 ## Demo / Instructions
-- Access the interactive demo page via the provided [link](https://appapppy-youtube-companion.streamlit.app/).  
+- Access the interactive demo page via the provided [Link](https://appapppy-youtube-companion.streamlit.app/). 
 - **Instructions to use the demo:**
   **1.** Open the demo page in your web browser
   **2.** Choose one of the three actions: Get Channel Data, Compare Channels, or Suggest a Channel
