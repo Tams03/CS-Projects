@@ -50,7 +50,7 @@ This project was completed as part of a group. My specific contributions include
 ---
 
 ## Prototype
-- The prototype demonstrates a fully functional SmartFridge setup, including hardware scanning and mobile app interface  
+- The prototype demonstrates a fully functional SmartFridge setup, including hardware scanning and a mobile app interface  
 - Users can test scanning different items, observe the real-time updates, and verify notification delivery
 
 ---
@@ -83,19 +83,19 @@ This project was completed as part of a group. My specific contributions include
 - **Final Report (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/Reports/SmartFridge%20%E2%80%93%20%D7%9E%D7%A1%D7%9E%D7%9A%20%D7%90%D7%A4%D7%99%D7%95%D7%9F%20%D7%A1%D7%95%D7%A4%D7%99.pdf)  
 - **Presentation Slides (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/Reports/IOT_FINAL_PRECENTATION.pdf) 
 - **Product User Guide (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/Reports/SmartFridge%20-%20%D7%9E%D7%93%D7%A8%D7%99%D7%9A%20%D7%9C%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9.pdf)
-- **Github Repository:** [Link](https://github.com/saroatov2910/devop)
+- **GitHub Repository:** [Link](https://github.com/saroatov2910/devop)
 
 ---
 
 ## Results
 - Successfully tracked food items and expiration dates in real-time  
 - Mobile app displayed notifications accurately  
-- Prototype demonstrated feasibility of an automated smart kitchen system
+- Prototype demonstrated the feasibility of an automated smart kitchen system
 
 ---
 
 ## Reflections
 - Learned to integrate IoT hardware with mobile applications effectively  
 - Gained experience in real-time data synchronization and system notifications  
-- Learned the importance of user-friendly interfaces for adoption of IoT systems  
+- Learned the importance of user-friendly interfaces for the adoption of IoT systems  
 - Learned how to work effectively in a team
