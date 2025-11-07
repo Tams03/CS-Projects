@@ -8,9 +8,9 @@
 ---
 
 ## Overview
-LiveTextTranslator (named **LinguaLink**) is a real-time multilingual translator for text and planned speech conversations.  
-It allows users speaking different languages to communicate instantly and seamlessly, leveraging the **NLLB-200 transformer model** for high-accuracy translation.  
-An **interactive demo page** is available to showcase the tool to non-coders and allow them to try live translations.  
+LiveTextTranslator (named **LinguaLink**) is a real-time multilingual translator for text and planned speech conversations. 
+It allows users speaking different languages to communicate instantly and seamlessly, leveraging the **NLLB-200 transformer model** for high-accuracy translation. 
+An **interactive demo page** is available to showcase the tool to non-coders and allow them to try live translations. 
 The project also lays the groundwork for future speech-to-speech, speech-to-text, and text-to-speech integration.
 
 ---
@@ -47,8 +47,8 @@ This project was completed as part of a group. My specific contributions include
 
 ## Features
 - Translates text in real-time across multiple languages  
-- Provides WebSocket-based backend for instant response  
-- Offers interactive demo page for testing translations  
+- Provides a WebSocket-based backend for instant response  
+- Offers an interactive demo page for testing translations  
 - Supports multiple simultaneous users 
 
 ---
@@ -62,7 +62,7 @@ This project was completed as part of a group. My specific contributions include
 ---
 
 ## Demo / Instructions
-- Access the interactive demo page via the provided [link](https://appapppy-livetexttranslator.streamlit.app/).  
+- Access the interactive demo page via the provided [link](https://appapppy-livetexttranslator.streamlit.app/). 
 - **Instructions to use the demo:**
   **1.** Open the demo page in your web browser
   **2.** Select the source language of your text 
@@ -70,7 +70,9 @@ This project was completed as part of a group. My specific contributions include
   **4.** Type or paste your text into the input box
   **5.** Press “Enter” or submit to receive the translation
   **6.** Test multiple languages and longer text inputs to observe real-time translation  
-  **7.** Input consecutive messages to simulate a conversation flow; the system handles multiple users and continuous text 
+  **7.** Input consecutive messages to simulate a conversation flow; the system manages multiple users and continuous text 
+
+> **Note:** the demo page uses a different translation model than the actual program because NLLB-200 was to have for Streamlit, the demo page uses Google Translate from deep_translator.
 
 ---
 
@@ -86,7 +88,7 @@ This project was completed as part of a group. My specific contributions include
 - Streamlit for interactive demo  
 - Hugging Face Transformers, NLLB-200  
 - Firebase for storage and logging
-> **Note:** NLLB-200 (No Language Left Behind) is a transformer-based model developed by Meta/Facebook, capable of translating between 200 languages with high accuracy, even for low-resource languages   
+> **Note:** NLLB-200 (No Language Left Behind) is a transformer-based model developed by Meta/Facebook, capable of translating between 200 languages with high accuracy, even for low-resource languages. 
 
 ---
 
@@ -94,14 +96,14 @@ This project was completed as part of a group. My specific contributions include
 
 - **Presentation:** [Link](https://github.com/Tams03/CS-Projects/blob/main/LiveTextTranslator/Deep_Learning.pdf)  
 - **Google Survey & Results:** [Link](https://docs.google.com/forms/d/15E-CbHtdQRPs7BiZ-v9oNSgnP_QKuv6a1FX3L-Kx6GI/edit#responses)  
-- **Github Repository:** [Link](https://github.com/Tams03/DL-Translator-Project.git)  
+- **GitHub Repository:** [Link](https://github.com/Tams03/DL-Translator-Project.git)  
 
 ---
 
 ## Results
 - Provided accurate and fast translations in real-time  
 - Supported multiple languages and users simultaneously  
-- Demonstrated feasibility of deploying transformer models for live translation
+- Demonstrated the feasibility of deploying transformer models for live translation
 
 ---
 
