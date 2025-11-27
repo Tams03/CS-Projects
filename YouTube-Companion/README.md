@@ -56,8 +56,8 @@ Finding relevant content on YouTube can be time-consuming, and discovering new c
 
 ---
 
-## Demo / Instructions
-- Access the interactive demo page via the provided [Link](https://appapppy-youtube-companion.streamlit.app/). 
+## src
+- Access the interactive src via the provided [Link](https://appapppy-youtube-companion.streamlit.app/). 
 - **Instructions to use the demo:**
   **1.** Open the demo page in your web browser
   **2.** Choose one of the three actions: Get Channel Data, Compare Channels, or Suggest a Channel
