@@ -61,8 +61,8 @@ This project was completed as part of a group. My specific contributions include
 
 ---
 
-## Demo / Instructions
-- Access the interactive demo page via the provided [link](https://appapppy-livetexttranslator.streamlit.app/). 
+## src
+- Access the interactive src via the provided [link](https://appapppy-livetexttranslator.streamlit.app/). 
 - **Instructions to use the demo:**
   **1.** Open the demo page in your web browser
   **2.** Select the source language of your text 
