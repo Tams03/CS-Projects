@@ -99,3 +99,22 @@ Finding relevant content on YouTube can be time-consuming, and discovering new c
 - Learned to integrate APIs with Python data analysis tools
 - Gained experience in interactive data visualization and user experience design  
 - Understood the importance of clear presentation for analytics-driven tools
+
+## Run the Streamlit demo locally
+
+From the repository root, install the dependencies and start the app:
+
+```sh
+python -m pip install streamlit google-api-python-client
+python -m streamlit run YouTube-Companion/Demo_Page/streamlit_app.py
+```
+
+Before starting the app, set `YOUTUBE_API_KEY` in your environment or create
+`.streamlit/secrets.toml` at the repository root with a top-level entry:
+
+```toml
+YOUTUBE_API_KEY = "YOUR_YOUTUBE_DATA_API_KEY"
+```
+
+For Streamlit Community Cloud, add the same top-level entry in the app’s
+Secrets settings before deploying. Keep real keys out of the repository.

@@ -1,11 +1,24 @@
+import os
+
 import streamlit as st
 from backend import compare_channels, get_channel_data, suggest_channel_based_on_others, get_channel_id
 from googleapiclient.discovery import build
-
-API_KEY = 'AIzaSyCFFdAVVupyX_MMs7uqFJ_Vl2iKn37g_DY'
-youtube = build('youtube', 'v3', developerKey=API_KEY)
+from streamlit.errors import StreamlitSecretNotFoundError
 
 st.set_page_config(page_title="YouTube Companion", layout="wide")
+
+api_key = os.environ.get("YOUTUBE_API_KEY", "").strip()
+if not api_key:
+    try:
+        api_key = st.secrets.get("YOUTUBE_API_KEY", "").strip()
+    except (FileNotFoundError, StreamlitSecretNotFoundError):
+        api_key = ""
+
+if not api_key:
+    st.error("Set YOUTUBE_API_KEY before running YouTube Companion.")
+    st.stop()
+
+youtube = build("youtube", "v3", developerKey=api_key)
 st.markdown("""
 <style>
 .stApp { background: linear-gradient(to bottom right, #e0f7e9, #a8e6a3, #4caf50); }
