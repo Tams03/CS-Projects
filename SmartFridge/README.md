@@ -1,101 +1,38 @@
-# 🧊 SmartFridge – IoT Food Management System
+# SmartFridge
 
-**Course:** IoT  
-**Grade:** 92/100  
-**Type:** IoT & Mobile Application  
-**Technologies:** Python, OpenCV, Pyzbar, Firebase, Pyrebase, Flutter, Gemini AI, Raspberry Pi, OpenFoodFacts API
+A team IoT prototype that uses a Raspberry Pi to scan food barcodes and record inventory in Firebase. A teammate developed the Flutter app.
 
----
+## My contribution
 
-## Overview
-SmartFridge is an IoT-based food management system designed to help users reduce food waste and optimize kitchen efficiency. This project was completed as part of a group and demonstrates how to integrate hardware and software. Using a Raspberry Pi and barcode scanning, the system tracks inventory and expiration dates automatically. Notifications alert users of soon-to-expire items, while Gemini AI provides smart suggestions for meals based on available ingredients. The mobile app interface allows remote access, real-time updates, and historical tracking of food usage. This project demonstrates the practical integration of hardware, software, and AI for a modern smart kitchen solution.
+I set up the Raspberry Pi, wrote Python barcode-scanning scripts, helped implement Firebase integration and inventory management, and worked on the user documentation.
 
----
+## Demo and reports
 
-## Problem & Motivation
-Food waste is a major global issue, and manually tracking expiration dates is time-consuming and error-prone. SmartFridge automates inventory tracking and sends timely notifications, helping users prevent unnecessary waste and optimize food usage.
+- [Demo video](./smartfridge-demo.mp4)
+- [Course reports and user guide (Hebrew)](./Reports)
 
----
+## Scanner and inventory
 
-## Goals
-- Reduce food waste through real-time expiration alerts  
-- Save time with automatic shopping lists and remote access  
-- Provide a modern, intuitive, AI-assisted user experience  
+The prototype uses a Raspberry Pi with a compatible camera, Python, OpenCV, pyzbar and a Firebase test project. The linked team snapshot has missing setup pieces and mismatched scanner/app field names. The video shows the course prototype. A fresh full-stack installation has not been verified.
 
----
+| Field in scanner snapshot | Meaning |
+| --- | --- |
+| `product_barcode` | Barcode read from the item |
+| `product_name` | Product name from lookup |
+| `expiration_date` | Unknown until entered separately |
+| `quantity` | Number of items recorded |
 
-## My Role
-This project was completed as part of a group. My specific contributions included:
-- Designed and implemented the Raspberry Pi hardware setup and barcode scanning scripts
-- Integrated Firebase real-time database for inventory tracking and organized the data
-- Created the user manual and final documentation for the project
+For example, scanning a tagged product can add it to inventory with a quantity of one. The date must be supplied separately. The Flutter snapshot expects `barcode` and `expirationDate`; those fields need to be aligned before using the two components together.
 
----
+## Run the standalone scanner
 
-## System Architecture / How it Works
-- Raspberry Pi captures images of food items and scans barcodes to identify and log them  
-- Data is stored and managed in Firebase, allowing real-time synchronization with the mobile app  
-- The mobile app provides users with an up-to-date inventory and sends notifications for expiring items  
-- Historical data is logged to track changes in inventory and user behavior
+This small scanner example prints newline-delimited JSON events. It needs no API key and does not write to Firebase. Leave a barcode out of view for five frames before scanning it again. Missing product names and expiration dates are emitted as JSON `null`.
 
----
+On Raspberry Pi OS with a working Picamera2 camera, install the system packages and run:
 
-## Features
-- Tracks inventory automatically using barcode scanning
-- Sends notifications for soon-to-expire food items
-- Provides smart suggestions using Gemini AI (e.g., “What can I make for lunch?”)  
-- Updates the mobile app in real-time
-- Maintains historical logs of added and removed items
+```sh
+sudo apt install python3-picamera2 python3-pyzbar libzbar0
+python3 SmartFridge/scanner.py
+```
 
----
-
-## Prototype
-- The prototype demonstrates a fully functional SmartFridge setup, including hardware scanning and a mobile app interface  
-- Users can test scanning different items, observe the real-time updates, and verify notification delivery
-
----
-
-## Demo / Instructions
-- Access the prototype demo (link provided) 
-- Follow the setup instructions in the README to replicate the system using the provided scripts and mobile app files  
-- Test the barcode scanning and ensure notifications are delivered correctly on the mobile app
-[Demo Video](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/smartfridge-demo.mp4)
-
----
-
-## Business Impact
-- Helps households reduce food waste and save money  
-- Demonstrates a scalable IoT solution for smart kitchens 
-- Provides a foundation for future commercial smart kitchen applications
-
----
-
-## Tools & Technologies
-- Python, OpenCV, Pyzbar  
-- Firebase, Pyrebase  
-- Flutter (mobile app)  
-- Raspberry Pi  
-- OpenFoodFacts API
-
----
-
-## Project Files
-- **Final Report (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/Reports/SmartFridge%20%E2%80%93%20%D7%9E%D7%A1%D7%9E%D7%9A%20%D7%90%D7%A4%D7%99%D7%95%D7%9F%20%D7%A1%D7%95%D7%A4%D7%99.pdf)  
-- **Presentation Slides (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/Reports/IOT_FINAL_PRECENTATION.pdf) 
-- **Product User Guide (Hebrew):** [Link](https://github.com/Tams03/CS-Projects/blob/main/SmartFridge/Reports/SmartFridge%20-%20%D7%9E%D7%93%D7%A8%D7%99%D7%9A%20%D7%9C%D7%9E%D7%A9%D7%AA%D7%9E%D7%A9.pdf)
-- **GitHub Repository:** [Link](https://github.com/saroatov2910/devop)
-
----
-
-## Results
-- Successfully tracked food items and expiration dates in real-time  
-- Mobile app displayed notifications accurately  
-- Prototype demonstrated the feasibility of an automated smart kitchen system
-
----
-
-## Reflections
-- Learned to integrate IoT hardware with mobile applications effectively  
-- Gained experience in real-time data synchronization and system notifications  
-- Learned the importance of user-friendly interfaces for the adoption of IoT systems  
-- Learned how to work effectively in a team
+[Scanner source](./scanner.py). Camera behavior needs validation on a Raspberry Pi.
